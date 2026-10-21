@@ -418,7 +418,7 @@ async function sprawdzLimitDzieci() {
     zastosujAutoAlt();
 
     const pozostalo = Math.max(0, LIMIT_DZIECI - zajete);
-    const okno = `${minutyNaCzas(godzMin - 30)}–${minutyNaCzas(godzMin + 30)}`;
+    const okno = `${minutyNaCzas(godzMin - 60)}–${minutyNaCzas(godzMin + 60)}`;
 
     let pokaz = false, ikona = 'ℹ️', tytul = '', opis = '';
 
@@ -626,7 +626,7 @@ function aktualnaLiczbaDzieci() {
 function powodAlt() {
   const k = aktualnaLiczbaDzieci();
   if (k >= 2) return 'rezerwacja z min. 2 dzieci';
-  if (k >= 1 && rezWOknie > 0) return 'w grafiku jest już rezerwacja w przedziale ±30 min';
+  if (k >= 1 && rezWOknie > 0) return 'w grafiku jest już rezerwacja w tym przedziale godzinowym';
   if (isNiedziela && k === 1 && !isNaN(wiekNajmlodszego) && wiekNajmlodszego < 8) return 'niedziela, dziecko poniżej 8 lat';
   return null;
 }
@@ -640,7 +640,7 @@ function zastosujAutoAlt() {
   if (btn) btn.classList.toggle('active', nowy);
   const note = document.getElementById('alt-powod');
   if (note) {
-    note.textContent = nowy ? `Automatycznie zaznaczono „Tylko na 1h” — ${powod}.` : '';
+    note.textContent = nowy ? `Automatycznie zaznaczono „Tylko na 1h” - ${powod}.` : '';
     note.style.display = nowy ? 'block' : 'none';
   }
   if (zmiana && document.getElementById('bubble-confirm')) odswiezBubkeConfirm();
@@ -649,7 +649,7 @@ function zastosujAutoAlt() {
   const btnConfirm = document.getElementById('btn-confirm');
   if (zmiana && nowy && btnConfirm && !btnConfirm.disabled) {
     document.getElementById('popup-alt-desc').textContent =
-      `Automatycznie zaznaczono „Tylko na 1h”.\n\nPowód: ${powod}.\n\nMożesz to odznaczyć przyciskiem „Tylko na 1h”.`;
+      `Automatycznie zaznaczono „Tylko na 1h”.\n\nPowód: ${powod}.`;
     document.getElementById('popup-alt').classList.add('show');
   }
 }
