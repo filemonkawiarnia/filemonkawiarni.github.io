@@ -355,7 +355,7 @@ function zablokujWyslijPoWyslaniu(dane) {
     const banner = document.createElement('div');
     banner.style.cssText = 'margin:0 0 1rem 0;border-left:4px solid #E8A73A;background:#FFF7E8;color:#7A5200;padding:0.85rem 1rem;border-radius:8px;font-size:0.9rem;line-height:1.4;';
     const kiedy = dane.wyslanoO ? new Date(dane.wyslanoO).toLocaleString('pl-PL') : '';
-    banner.textContent = `⚠️ SMS (${dane.typ === 'confirm' ? 'potwierdzenie' : 'brak miejsc'}) został już wysłany dla tej rezerwacji${kiedy ? ' — ' + kiedy : ''}. Wysyłka z tego linku jest zablokowana, także z innych urządzeń.`;
+    banner.textContent = `⚠️ SMS (${dane.typ === 'confirm' ? 'potwierdzenie' : 'brak miejsc'}) został już wysłany dla tej rezerwacji${kiedy ? ' - ' + kiedy : ''}. Wysyłka z tego linku jest zablokowana, także z innych urządzeń.`;
     firstSection.parentNode.insertBefore(banner, firstSection);
     if (dane.tresc) {
       const trescBox = document.createElement('div');
