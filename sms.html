@@ -921,7 +921,7 @@ if (!tel || !imie || !dataRez || !godz) {
         <div class="info-row"><span class="info-label">Telefon</span><span class="info-value">+${tel}</span></div>
         <div class="info-row"><span class="info-label">Data</span><span class="info-value">${dataRez}</span></div>
         <div class="info-row"><span class="info-label">Godzina</span><span class="info-value">${godz}</span></div>
-        ${potrzebnyDokument ? `<div class="info-row"><span class="info-label">Uwaga</span><span class="info-value" style="color:var(--red)">Dziecko 8-11 lat — dopisano przypomnienie o dokumencie</span></div>` : ''}
+        ${potrzebnyDokument ? `<div class="info-row"><span class="info-label">Uwaga</span><span class="info-value" style="color:var(--red)">Dziecko 8-11 lat - dopisano przypomnienie o dokumencie</span></div>` : ''}
       </div>
     </div>
 
@@ -929,7 +929,7 @@ if (!tel || !imie || !dataRez || !godz) {
     <div class="section">
       <div class="card warn-card">
         <div class="warn-title">⚠️ Klient wybrał "6+ osób"</div>
-        <div class="warn-desc">Dokładna liczba osób powinna być podana w uwagach (${uwagi ? `"${uwagi}"` : 'brak uwag — sprawdź z klientem'}). Popraw liczbę osób, która zostanie dodana do grafiku, jeśli to konieczne.</div>
+        <div class="warn-desc">Dokładna liczba osób powinna być podana w uwagach (${uwagi ? `"${uwagi}"` : 'brak uwag - sprawdź z klientem'}). Popraw liczbę osób, która zostanie dodana do grafiku, jeśli to konieczne.</div>
         <div class="warn-stepper">
           <button onclick="zmienLiczbe6Plus(-1)" id="btn-6plus-minus" disabled>−</button>
           <span id="v-6plus">6</span>
