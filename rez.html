@@ -1578,9 +1578,9 @@ function renderClientView(id){
     ${clientAddedLabel(c)?`<div class="detail-row"><span class="detail-label">Data dodania</span><span class="detail-value">${clientAddedLabel(c)}</span></div>`:''}
     ${c.note?`<div class="cn-note">📌 ${escapeHtml(c.note).replace(/\n/g,'<br>')}</div>`:''}
     <button class="btn-primary btn-ghost" onclick="renderClientReservations('${id}')" style="margin-top:1rem">Zobacz rezerwacje</button>
-    <button class="btn-primary btn-ghost" onclick="renderClientEdit('${id}')" style="margin-top:0.5rem">✏️ Edytuj dane klienta</button>
+    <button class="btn-primary btn-ghost" onclick="renderClientEdit('${id}')" style="margin-top:0.5rem">Edytuj dane klienta</button>
     <button class="btn-primary btn-ghost" onclick="closeOverlay('cli-overlay')" style="margin-top:0.5rem">Zamknij</button>
-    <button class="btn-primary btn-danger btn-ghost" onclick="deleteClient('${id}')" style="margin-top:1.2rem">🗑️ Usuń klienta</button>
+    <button class="btn-primary btn-danger btn-ghost" onclick="deleteClient('${id}')" style="margin-top:1.2rem">Usuń klienta</button>
   `;
 }
 window.renderClientView=renderClientView;
