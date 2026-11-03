@@ -385,7 +385,7 @@ header{background:var(--navy);padding:0.9rem 1rem;display:flex;align-items:cente
       <button class="cf-btn" id="cf-sort-added" onclick="setClientSort('added')">Data dodania ↓</button>
     </div>
     <label class="cf-check"><input type="checkbox" id="cf-only-noshow" onchange="renderClients()"> Pokaż tylko z nieobecnościami</label>
-    <label class="cf-check"><input type="checkbox" id="cf-only-cake" onchange="renderClients()"> Pokaż tylko z zamówieniem ciasta 🎂</label>
+    <label class="cf-check"><input type="checkbox" id="cf-only-cake" onchange="renderClients()"> Pokaż tylko z zamówieniem ciasta</label>
   </div>
   <div style="padding:0 0.75rem" id="clients-list"></div>
 </div>
@@ -1294,7 +1294,7 @@ window.openDetail=function(id){
 window.openCakeDetail=function(id){
   const r=dayReservations[id];if(!r)return;
   document.getElementById('det-content').innerHTML=`
-    <div class="detail-name">🎂 ${r.name}</div>
+    <div class="detail-name">${r.name}</div>
     <div class="detail-time">Odbiór: ${r.date} · ${r.time}</div>
     ${r.phone?`<div class="detail-row"><span class="detail-label">Telefon</span><span class="detail-value"><a href="tel:${r.phone}" style="color:var(--navy);font-weight:600;text-decoration:none">${r.phone}</a></span></div>`:(r.contact==='fb'?`<div class="detail-row"><span class="detail-label">Kontakt</span><span class="detail-value">Zamówienie przez FB</span></div>`:'')}
     ${r.cakeList?`<div class="detail-row"><span class="detail-label">Ciasta</span><span class="detail-value">${r.cakeList}</span></div>`:''}
@@ -1555,7 +1555,7 @@ function renderClients(){
         <div class="client-name">${c.name}</div>
         <div class="client-sub">${c.phone||'brak telefonu'}</div>
       </div>
-      <div class="client-stats">rez: ${c.reservations||0}${(c.cakeOrders||0)>0?`<br>🎂 ${c.cakeOrders}`:''}${ns>0?`<br><span class="ns">nb: ${ns}</span>`:''}</div>
+      <div class="client-stats">rez: ${c.reservations||0}${(c.cakeOrders||0)>0?`<br>${c.cakeOrders}`:''}${ns>0?`<br><span class="ns">nb: ${ns}</span>`:''}</div>
     </div>`;
   }).join('');
 }
@@ -1573,11 +1573,11 @@ function renderClientView(id){
     <div class="detail-name">${c.name}</div>
     <div class="detail-time">${c.phone||'brak telefonu'}</div>
     <div class="detail-row"><span class="detail-label">Rezerwacje</span><span class="detail-value">${c.reservations||0}</span></div>
-    ${(c.cakeOrders||0)>0?`<div class="detail-row"><span class="detail-label">Zamówienia ciasta</span><span class="detail-value">🎂 ${c.cakeOrders}</span></div>`:''}
+    ${(c.cakeOrders||0)>0?`<div class="detail-row"><span class="detail-label">Zamówienia ciasta</span><span class="detail-value">${c.cakeOrders}</span></div>`:''}
     <div class="detail-row"><span class="detail-label">Nieobecności</span><span class="detail-value">${c.noShows>0?`<span class="badge-ns">⚠️ ${c.noShows}</span>`:0}</span></div>
     ${clientAddedLabel(c)?`<div class="detail-row"><span class="detail-label">Data dodania</span><span class="detail-value">${clientAddedLabel(c)}</span></div>`:''}
     ${c.note?`<div class="cn-note">📌 ${escapeHtml(c.note).replace(/\n/g,'<br>')}</div>`:''}
-    <button class="btn-primary btn-ghost" onclick="renderClientReservations('${id}')" style="margin-top:1rem">📋 Zobacz rezerwacje</button>
+    <button class="btn-primary btn-ghost" onclick="renderClientReservations('${id}')" style="margin-top:1rem">Zobacz rezerwacje</button>
     <button class="btn-primary btn-ghost" onclick="renderClientEdit('${id}')" style="margin-top:0.5rem">✏️ Edytuj dane klienta</button>
     <button class="btn-primary btn-ghost" onclick="closeOverlay('cli-overlay')" style="margin-top:0.5rem">Zamknij</button>
     <button class="btn-primary btn-danger btn-ghost" onclick="deleteClient('${id}')" style="margin-top:1.2rem">🗑️ Usuń klienta</button>
