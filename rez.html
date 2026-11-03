@@ -1315,8 +1315,8 @@ window.openCakeDetail=function(id){
     ${r.addedBy?`<div class="detail-row"><span class="detail-label">Przyjął/-ęła</span><span class="detail-value">${r.addedBy}</span></div>`:''}
     <div class="det-actions">
       <button class="btn-primary ${r.arrived?' btn-ghost':' btn-success'}" onclick="toggleArrived('${id}')">${r.arrived?'✅ Cofnij odbiór':'Oznacz jako odebrane'}</button>
-      ${(typeof r.smsText==='string'&&r.smsText.trim()!=='')?`<button class="btn-primary btn-ghost" onclick="openSmsPreview('${id}')" title="Zobacz treść SMS">${r.smsSent?'✅ SMS wysłany — podgląd':'SMS — podgląd treści'}</button>`:''}
-      ${(r.printCafeText||r.printClientText)?`<button class="btn-primary btn-ghost" onclick="openPrintPreview('${id}')" title="Zobacz treść wydruku">${r.printed?'🖨️ Wydrukowano — podgląd':'🖨️ Wydruk — podgląd treści'}</button>`:''}
+      ${(typeof r.smsText==='string'&&r.smsText.trim()!=='')?`<button class="btn-primary btn-ghost" onclick="openSmsPreview('${id}')" title="Zobacz treść SMS">${r.smsSent?'✅ SMS wysłany':'SMS - podgląd treści'}</button>`:''}
+      ${(r.printCafeText||r.printClientText)?`<button class="btn-primary btn-ghost" onclick="openPrintPreview('${id}')" title="Zobacz treść wydruku">${r.printed?'Wydrukowano - podgląd':'Wydruk - podgląd treści'}</button>`:''}
       <button class="btn-primary btn-danger" onclick="deleteRes('${id}')">Usuń zamówienie</button>
       <button class="btn-primary btn-ghost" onclick="closeOverlay('det-overlay')">Zamknij</button>
     </div>
