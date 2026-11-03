@@ -411,7 +411,7 @@ header{background:var(--navy);padding:0.9rem 1rem;display:flex;align-items:cente
       <div class="sheet-title" id="add-title">Nowa rezerwacja</div>
       <div class="mode-toggle" id="mode-toggle">
         <button type="button" id="mode-res" class="active" onclick="setAddMode('res')">Rezerwacja</button>
-        <button type="button" id="mode-cake" onclick="setAddMode('cake')">🎂 Ciasto</button>
+        <button type="button" id="mode-cake" onclick="setAddMode('cake')">Ciasto</button>
       </div>
     </div>
     <div id="step-date">
@@ -809,7 +809,7 @@ function renderDay(){
     const cakeChips=cakeRes.map(r=>{
       let cls='res-chip cake-chip';
       if(r.arrived)cls+=' arrived';
-      return `<span class="${cls}" onclick="openDetail('${r.id}')">🎂 ${firstName(r.name)}</span>`;
+      return `<span class="${cls}" onclick="openDetail('${r.id}')">${firstName(r.name)}</span>`;
     }).join('');
     return `<div class="slot">
       <div class="slot-time" onclick="openAddAtTime('${h}')">${h}</div>
