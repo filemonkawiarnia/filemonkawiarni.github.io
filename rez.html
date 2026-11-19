@@ -1485,11 +1485,11 @@ function buildXmasSmsText(r,kind){
   const kod=r.orderCode?(' '+r.orderCode):'';
   const dl=r.payDeadline?String(r.payDeadline).split('-').slice(1).reverse().join('-'):'21-12';
   if(kind==='paid'){
-    return 'Czesc, '+imie+'!\n\nZadatek zaksiegowany - zamowienie swiateczne'+kod+' zostalo PRZYJETE.\n'
+    return 'Czesc, '+imie+'!\n\nZamowienie '+kod+' zostalo PRZYJETE.\n'
       +xmasItemsText(r)+'\n'
       +'Do zaplaty przy odbiorze: '+(r.rest!==undefined?r.rest:'')+' zl.\n'
       +'Odbior '+dzien+' w godz. 11-19.\n'
-      +'Nieodebrane zamowienie = przepada zadatek.\n\nFilemon Kocia Kawiarnia';
+      +'\nFilemon Kocia Kawiarnia';
   }
   const konto=XMAS_BANK_ACCOUNT||'[NUMER KONTA]';
   return 'Czesc, '+imie+'!\n\nZamowienie swiateczne'+kod+' zostalo zlozone na: '+xmasItemsText(r)+'.\n'
