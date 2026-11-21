@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kocia Kawiarnia 404</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=DM+Sans:wght@400;500&display=swap">
+<style>
+  body { margin: 0; }
+  /* Layout: wyśrodkowana kolumna. Duże "404" z kubkiem latte w roli zera,
+     pod spodem scena SVG z kotem przegryzającym kabel, napis i przycisk. */
+  :root {
+    --bg: #f2ede6;
+    --fg: #2b1c14;
+    --muted: #6d5a4d;
+    --cat: #e58f3a;
+    --cat-dark: #c26f1d;
+    --cat-light: #f6c58c;
+    --pink: #e9909a;
+    --ink: #3a2418;
+    --cable: #2d2c31;
+    --plug: #3d3b42;
+    --wall: #d8cdc0;
+    --accent: #23706a;
+    --accent-fg: #ffffff;
+    --coffee: #4a2c1b;
+    --foam: #f3e2c8;
+    --saucer: #fbf7f1;
+    --ground: #b9aa9a;
+    --steam: #b3a495;
+    --spark: #f2b705;
+    --bubble: #ffffff;
+    --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1410;
+      --fg: #f4e9dd;
+      --muted: #bba797;
+      --cat: #ea9a43;
+      --cat-dark: #c97a28;
+      --cat-light: #f5c48a;
+      --cable: #a29eae;
+      --plug: #6a6674;
+      --wall: #34281f;
+      --accent: #4fb5ab;
+      --accent-fg: #08201d;
+      --coffee: #2a160b;
+      --foam: #ecd8bd;
+      --saucer: #3a2d25;
+      --ground: #54443a;
+      --steam: #8a796c;
+      --spark: #f5c230;
+      --bubble: #3a2d25;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1410;
+    --fg: #f4e9dd;
+    --muted: #bba797;
+    --cat: #ea9a43;
+    --cat-dark: #c97a28;
+    --cat-light: #f5c48a;
+    --cable: #a29eae;
+    --plug: #6a6674;
+    --wall: #34281f;
+    --accent: #4fb5ab;
+    --accent-fg: #08201d;
+    --coffee: #2a160b;
+    --foam: #ecd8bd;
+    --saucer: #3a2d25;
+    --ground: #54443a;
+    --steam: #8a796c;
+    --spark: #f5c230;
+    --bubble: #3a2d25;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    padding-block: 28px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(5.5rem, 24vw, 10rem);
+    line-height: 1;
+    margin: 0;
+  }
+  .code svg { width: 0.76em; height: 0.76em; flex: none; margin-inline: 0.02em; }
+  .ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ring 3.2s ease-out infinite;
+  }
+  @keyframes ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(1.04); opacity: 0; }
+  }
+
+  #scene { width: 100%; max-width: 640px; height: auto; display: block; margin-top: 0.25rem; }
+  #cat { cursor: pointer; }
+  #cat:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+  #cat.hop { animation: hop 0.45s ease-out; }
+  @keyframes hop {
+    0% { transform: translateY(0); }
+    40% { transform: translateY(-16px); }
+    100% { transform: translateY(0); }
+  }
+  .steam {
+    fill: none;
+    stroke: var(--steam);
+    stroke-width: 5;
+    stroke-linecap: round;
+    animation: steam 3.2s ease-in-out infinite;
+  }
+  .s2 { animation-delay: 1s; }
+  .s3 { animation-delay: 2s; }
+  @keyframes steam {
+    0% { transform: translateY(10px); opacity: 0; }
+    30% { opacity: 0.75; }
+    100% { transform: translateY(-24px); opacity: 0; }
+  }
+  .spark {
+    fill: var(--spark);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spark 0.9s ease-in-out infinite;
+  }
+  .k2 { animation-delay: 0.3s; }
+  .k3 { animation-delay: 0.6s; }
+  @keyframes spark {
+    0%, 100% { transform: scale(0.2); opacity: 0; }
+    50% { transform: scale(1); opacity: 1; }
+  }
+  #bubble {
+    opacity: 0;
+    transform: scale(0.6);
+    transform-origin: 176px 222px;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    pointer-events: none;
+  }
+  #bubble.on { opacity: 1; transform: scale(1); }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 5.6vw, 2.2rem);
+    line-height: 1.2;
+    margin: 0.9rem 0 0;
+    text-wrap: balance;
+  }
+  .lead { color: var(--muted); max-width: 44ch; margin: 0.6rem 0 0; text-wrap: pretty; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1.4rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 6px 16px -8px var(--accent);
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px var(--accent); }
+  .btn:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
+  .hint { color: var(--muted); font-size: 0.85rem; margin: 0.9rem 0 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .steam { animation: none; opacity: 0.5; }
+    .spark { animation: none; opacity: 0; }
+    .ring { animation: none; opacity: 0.4; }
+    #cat.hop { animation: none; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+
+<main>
+  <p class="code" role="img" aria-label="Błąd 404">
+    <span aria-hidden="true">4</span>
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <rect x="80" y="43" width="18" height="14" rx="7" fill="var(--accent)"/>
+      <circle cx="50" cy="50" r="48" fill="var(--saucer)" stroke="var(--ground)" stroke-width="2"/>
+      <circle cx="50" cy="50" r="37" fill="var(--accent)"/>
+      <circle cx="50" cy="50" r="31" fill="var(--coffee)"/>
+      <circle class="ring" cx="50" cy="50" r="30" fill="none" stroke="var(--foam)" stroke-width="2"/>
+      <path d="M50 67 C28 51 35 34 46 37 C49 38 50 41 50 44 C50 41 51 38 54 37 C65 34 72 51 50 67 Z" fill="var(--foam)"/>
+    </svg>
+    <span aria-hidden="true">4</span>
+  </p>
+
+  <svg id="scene" viewBox="0 0 640 340" role="img" aria-label="Rudy kot siedzi w kawiarni i przegryza kabel, obok stoi parujący kubek kawy.">
+    <defs>
+      <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" style="stop-color:var(--spark);stop-opacity:.32"/>
+        <stop offset="1" style="stop-color:var(--spark);stop-opacity:0"/>
+      </linearGradient>
+      <linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="640" y2="0">
+        <stop offset="0" style="stop-color:var(--ground);stop-opacity:0"/>
+        <stop offset=".12" style="stop-color:var(--ground);stop-opacity:1"/>
+        <stop offset=".88" style="stop-color:var(--ground);stop-opacity:1"/>
+        <stop offset="1" style="stop-color:var(--ground);stop-opacity:0"/>
+      </linearGradient>
+      <g id="bean">
+        <ellipse rx="8" ry="5" fill="var(--coffee)"/>
+        <path d="M-6 0 Q0 -3 6 0" stroke="var(--foam)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </g>
+      <path id="star" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z"/>
+    </defs>
+
+    <!-- lampa nad kotem -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-1.6 320 0;1.6 320 0;-1.6 320 0" keyTimes="0;0.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="6s" repeatCount="indefinite"/>
+      <polygon points="302,98 338,98 440,300 200,300" fill="url(#glow)"/>
+      <line x1="320" y1="0" x2="320" y2="64" stroke="var(--fg)" stroke-width="2"/>
+      <path d="M288 94 Q288 62 320 62 Q352 62 352 94 Z" fill="var(--accent)"/>
+      <circle cx="320" cy="97" r="6" fill="var(--spark)"/>
+    </g>
+
+    <!-- podłoga -->
+    <line x1="0" y1="301" x2="640" y2="301" stroke="url(#gl)" stroke-width="2"/>
+    <use href="#bean" transform="translate(92 322) rotate(20)"/>
+    <use href="#bean" transform="translate(112 329) rotate(-35)"/>
+    <use href="#bean" transform="translate(176 324) rotate(70)"/>
+    <use href="#bean" transform="translate(560 323) rotate(-15)"/>
+    <use href="#bean" transform="translate(584 330) rotate(40)"/>
+
+    <!-- gniazdko i wtyczka -->
+    <rect x="4" y="252" width="26" height="56" rx="7" fill="var(--wall)"/>
+    <rect x="12" y="270" width="3" height="10" rx="1.5" fill="var(--plug)" opacity=".6"/>
+    <rect x="19" y="270" width="3" height="10" rx="1.5" fill="var(--plug)" opacity=".6"/>
+    <rect x="29" y="289" width="8" height="3" fill="var(--plug)"/>
+    <rect x="29" y="298" width="8" height="3" fill="var(--plug)"/>
+    <rect x="36" y="283" width="24" height="24" rx="5" fill="var(--plug)"/>
+
+    <!-- kubek -->
+    <ellipse cx="518" cy="299" rx="72" ry="8" fill="var(--saucer)" stroke="var(--ground)" stroke-width="1.5"/>
+    <path d="M566 246 H578 a17 17 0 0 1 0 34 H566" fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M470 232 H566 V268 Q566 298 536 298 H500 Q470 298 470 268 Z" fill="var(--accent)"/>
+    <ellipse cx="518" cy="232" rx="48" ry="9" fill="var(--coffee)" stroke="var(--accent)" stroke-width="3"/>
+    <text x="518" y="274" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="22" fill="var(--foam)">404</text>
+    <path class="steam s1" d="M500 220 q-9 -14 0 -26 t0 -26"/>
+    <path class="steam s2" d="M518 220 q-9 -14 0 -26 t0 -26"/>
+    <path class="steam s3" d="M536 220 q-9 -14 0 -26 t0 -26"/>
+
+    <!-- kot -->
+    <g id="cat" tabindex="0" role="button" aria-label="Pogłaskaj kota">
+      <ellipse cx="330" cy="302" rx="120" ry="7" fill="var(--ground)" opacity=".5"/>
+
+      <path d="M398 270 C440 270 452 236 430 212" fill="none" stroke="var(--cat)" stroke-width="16" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" values="-5 398 270;6 398 270;-5 398 270" dur="2.4s" repeatCount="indefinite"/>
+      </path>
+      <ellipse cx="332" cy="252" rx="80" ry="48" fill="var(--cat)"/>
+      <g stroke="var(--cat-dark)" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M302 207 v20"/><path d="M328 204 v26"/><path d="M354 207 v22"/>
+        <path d="M380 218 v16"/>
+      </g>
+      <ellipse cx="382" cy="296" rx="25" ry="10" fill="var(--cat-light)"/>
+
+      <!-- głowa gryzie kabel -->
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 3;0 0" dur="0.6s" repeatCount="indefinite"/>
+        <g fill="var(--cat)" stroke="var(--cat)" stroke-width="6" stroke-linejoin="round">
+          <path d="M208 244 L210 208 L238 226 Z"/>
+          <path d="M272 244 L270 208 L242 226 Z"/>
+        </g>
+        <path d="M215 236 L216 219 L229 227 Z" fill="var(--pink)"/>
+        <path d="M265 236 L264 219 L251 227 Z" fill="var(--pink)"/>
+        <circle cx="240" cy="258" r="36" fill="var(--cat)"/>
+        <g stroke="var(--cat-dark)" stroke-width="3" stroke-linecap="round">
+          <path d="M240 226 v10"/><path d="M229 228 l2 9"/><path d="M251 228 l-2 9"/>
+        </g>
+        <ellipse cx="216" cy="266" rx="6" ry="4" fill="var(--pink)" opacity=".6"/>
+        <ellipse cx="264" cy="266" rx="6" ry="4" fill="var(--pink)" opacity=".6"/>
+        <g stroke="var(--ink)" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M222 252 q6 -7 12 0"/><path d="M246 252 q6 -7 12 0"/>
+        </g>
+        <path d="M236 263 h8 l-4 5 z" fill="var(--pink)" stroke="var(--pink)" stroke-width="1.5" stroke-linejoin="round"/>
+        <g stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" opacity=".5">
+          <path d="M206 262 l-20 -4"/><path d="M206 267 l-22 2"/>
+          <path d="M274 262 l20 -4"/><path d="M274 267 l22 2"/>
+        </g>
+      </g>
+
+      <!-- kabel od wtyczki do pyszczka -->
+      <path d="M60 295 C110 297 135 309 175 303 S218 288 240 274" fill="none" stroke="var(--cable)" stroke-width="6" stroke-linecap="round">
+        <animate attributeName="d" dur="0.6s" repeatCount="indefinite"
+          values="M60 295 C110 297 135 309 175 303 S218 288 240 274;M60 295 C110 302 135 304 175 308 S218 293 240 277;M60 295 C110 297 135 309 175 303 S218 288 240 274"/>
+      </path>
+
+      <!-- iskierki -->
+      <g transform="translate(214 284)"><use href="#star" class="spark"/></g>
+      <g transform="translate(262 288)"><use href="#star" class="spark k2"/></g>
+      <g transform="translate(228 304)"><use href="#star" class="spark k3"/></g>
+
+      <!-- łapki -->
+      <ellipse cx="294" cy="297" rx="17" ry="10" fill="var(--cat-light)"/>
+      <ellipse cx="262" cy="294" rx="17" ry="10" fill="var(--cat-light)">
+        <animateTransform attributeName="transform" type="translate" values="0 0;-9 -3;0 0;0 0" keyTimes="0;0.25;0.5;1" dur="1.4s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+
+    <g id="bubble">
+      <rect x="92" y="170" width="92" height="34" rx="17" fill="var(--bubble)" stroke="var(--ground)" stroke-width="1.5"/>
+      <path d="M160 203 L180 203 L198 224 Z" fill="var(--bubble)" stroke="var(--ground)" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="158" y="199" width="24" height="6" fill="var(--bubble)"/>
+      <text id="bubble-text" x="138" y="193" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="500" font-size="17" fill="var(--fg)">mrau!</text>
+    </g>
+  </svg>
+
+  <h1>Wygląda na to, że się zgubiłeś</h1>
+  <p class="lead">Strony, której szukasz, nie ma w naszym menu. Kot właśnie przegryzł kabel, więc sprawdź adres albo wróć na start.</p>
+  <a class="btn" href="/">Wróć na stronę główną</a>
+  <p class="hint">Podpowiedź: pogłaszcz kota.</p>
+</main>
+
+<script>
+  (function () {
+    var svg = document.getElementById('scene');
+    var cat = document.getElementById('cat');
+    var bubble = document.getElementById('bubble');
+    var bubbleText = document.getElementById('bubble-text');
+    var words = ['mrau!', 'mrrr…', 'mniam!', 'nie ruszaj!', 'kabelek!'];
+    var n = 0, timer = null;
+
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function applyMotion() {
+      try { mq.matches ? svg.pauseAnimations() : svg.unpauseAnimations(); } catch (e) {}
+    }
+    applyMotion();
+    if (mq.addEventListener) mq.addEventListener('change', applyMotion);
+
+    function poke() {
+      bubbleText.textContent = words[n++ % words.length];
+      cat.classList.remove('hop');
+      void cat.getBoundingClientRect();
+      cat.classList.add('hop');
+      bubble.classList.add('on');
+      clearTimeout(timer);
+      timer = setTimeout(function () { bubble.classList.remove('on'); }, 1400);
+    }
+    cat.addEventListener('click', poke);
+    cat.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); }
+    });
+  })();
+</script>
+
+</body>
+</html>
