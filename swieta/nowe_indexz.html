@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#7A1218">
+<title>Filemon - Oferta świąteczna</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#7A1218; --red-dark:#5A0C11; --red-mid:#9B1C24;
+    --gold:#D9B26A; --gold-light:#F1D9A3; --gold-dark:#A8802F;
+    --cream:#FFF8EC; --text:#2A1214; --muted:#8B6B6D;
+    --border:rgba(122,18,24,0.2); --error:#C0392B; --green:#1E7A4F;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+  header{background:radial-gradient(ellipse at 50% 30%,var(--red-mid),var(--red-dark));position:relative;overflow:hidden;text-align:center;padding:1.8rem 1.2rem 1.6rem}
+  header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(241,217,163,0.18) 1.2px,transparent 1.5px);background-size:30px 30px;pointer-events:none}
+  .head-in{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+  .logo-wrap img{height:64px;object-fit:contain}
+  .logo-fallback{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--gold-light)}
+  header h1{font-family:'DM Serif Display',serif;color:var(--gold-light);font-size:clamp(1.7rem,5vw,2.8rem);letter-spacing:.04em;margin-top:.7rem;text-transform:uppercase}
+  header p{color:rgba(241,217,163,.85);font-size:.85rem;font-weight:700;margin-top:.3rem}
+
+  .info-bar{max-width:1100px;margin:1.2rem auto 0;padding:0 1.2rem}
+  .rules{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:1rem 1.2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem 1.2rem;box-shadow:0 3px 14px rgba(122,18,24,.07)}
+  .rule .k{font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red-mid);margin-bottom:.15rem}
+  .rule .v{font-size:.84rem;font-weight:700;line-height:1.4}
+  .warn{max-width:1100px;margin:.9rem auto 0;padding:0 1.2rem}
+  .warn-box{background:#FFF1D6;border:1.5px solid var(--gold);border-radius:12px;padding:.8rem 1rem;font-size:.8rem;line-height:1.55;font-weight:600}
+  .warn-box strong{color:var(--red)}
+  @media(max-width:900px){.rules{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.rules{grid-template-columns:1fr}}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:1.5rem 1.2rem 4rem;display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:start}
+  @media(max-width:860px){.wrap{grid-template-columns:1fr}}
+
+  .menu h2{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--red);margin-bottom:.9rem}
+  .item{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:.8rem 1rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem;transition:border-color .15s,background .15s}
+  .item.on{border-color:var(--red);background:#FFF3F0}
+  .item-name{flex:1;font-weight:700;font-size:.92rem;line-height:1.3}
+  .item-name small{font-weight:600;color:var(--muted)}
+  .item-price{font-weight:900;color:var(--red);white-space:nowrap;font-size:.95rem}
+  .qty{display:flex;align-items:center;border:1.5px solid var(--red);border-radius:9px;overflow:hidden;flex-shrink:0}
+  .qty button{width:34px;height:34px;border:none;background:#fff;color:var(--red);font-size:1.2rem;font-weight:800;cursor:pointer;font-family:inherit}
+  .qty button:active{background:var(--gold-light)}
+  .qty span{min-width:30px;text-align:center;font-weight:900;font-size:.95rem}
+  .item:not(.on) .qty span{color:var(--muted)}
+
+  .form-col{position:sticky;top:1rem}
+  @media(max-width:860px){.form-col{position:static}}
+  .card{background:#fff;border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 6px 28px rgba(122,18,24,.12)}
+  .card-top{background:var(--red);padding:1.1rem 1.4rem}
+  .card-top h2{font-family:'DM Serif Display',serif;color:var(--gold-light);font-size:1.35rem}
+  .card-body{padding:1.3rem 1.4rem}
+  .sum{background:#FFF8EC;border:1.5px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem}
+  .sum-label,.f label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+  .sum-line{display:flex;justify-content:space-between;gap:.6rem;font-size:.84rem;font-weight:700;padding:.18rem 0}
+  .sum-empty{font-size:.85rem;color:var(--muted);font-style:italic}
+  .pay{background:var(--red-dark);border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+  .pay .l{font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:rgba(241,217,163,.7)}
+  .pay .v{font-size:1.05rem;font-weight:900;color:var(--gold-light)}
+  .pay .v.dep{color:#fff}
+  .f{margin-bottom:.95rem}
+  .f label .req{color:var(--red)}
+  .f input,.f select,.f textarea{width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:9px;font-family:inherit;font-size:.92rem;font-weight:600;color:var(--text);background:#FFFCF6;outline:none}
+  .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(122,18,24,.1);background:#fff}
+  .f textarea{height:70px;resize:vertical}
+  .pickup-note{background:#FFF8EC;border:1.5px solid var(--border);border-radius:10px;padding:.7rem .9rem;margin-bottom:.95rem;font-size:.84rem;font-weight:600;line-height:1.5}
+  .f .has-error{border-color:var(--error)}
+  .err{display:none;font-size:.72rem;font-weight:700;color:var(--error);margin-top:.25rem}
+  .divider{display:flex;align-items:center;gap:.6rem;margin:1.1rem 0}
+  .divider::before,.divider::after{content:'';flex:1;height:1.5px;background:var(--border)}
+  .divider span{font-size:.65rem;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.12em}
+  .agree{display:flex;gap:.6rem;align-items:flex-start;font-size:.78rem;font-weight:600;line-height:1.5;background:#FFF1D6;border:1.5px solid var(--gold);border-radius:10px;padding:.7rem .85rem}
+  .agree input{width:18px;height:18px;margin-top:.1rem;accent-color:var(--red);flex-shrink:0}
+  .btn{width:100%;margin-top:1.1rem;padding:.95rem;background:var(--red);color:#fff;border:none;border-radius:11px;font-family:inherit;font-size:.95rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 20px rgba(122,18,24,.3);transition:background .2s,transform .15s}
+  .btn:hover{background:var(--red-dark);transform:translateY(-2px)}
+  .btn:disabled{background:var(--muted);cursor:not-allowed;transform:none;box-shadow:none}
+  .foot{text-align:center;font-size:.72rem;color:var(--muted);margin-top:.7rem;font-weight:600}
+
+  .closed{max-width:600px;margin:3rem auto;padding:2rem 1.5rem;text-align:center;background:#fff;border:1.5px solid var(--border);border-radius:16px}
+  .closed h2{font-family:'DM Serif Display',serif;color:var(--red);font-size:1.7rem;margin-bottom:.5rem}
+
+  .overlay{display:none;position:fixed;inset:0;background:rgba(42,18,20,.7);z-index:500;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
+  .overlay.show{display:flex}
+  .popup{background:var(--red-dark);border:2px solid var(--gold);border-radius:20px;padding:1.8rem 1.6rem;max-width:480px;width:100%;color:#fff;margin:auto}
+  .popup h3{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold-light);margin-bottom:.8rem}
+  .popup-box{background:rgba(255,255,255,.07);border:1px solid rgba(241,217,163,.3);border-radius:10px;padding:.8rem 1rem;font-size:.84rem;line-height:1.8;margin-bottom:.9rem}
+  .popup-box strong{color:var(--gold-light)}
+  .code{font-size:1.5rem;font-weight:900;letter-spacing:.12em;color:var(--gold-light);text-align:center;margin:.2rem 0 .5rem}
+  .popup p{font-size:.8rem;line-height:1.55;color:rgba(255,255,255,.85);margin-bottom:.8rem}
+  .popup button{width:100%;padding:.85rem;border:none;border-radius:9px;background:var(--gold);color:var(--red-dark);font-family:inherit;font-weight:900;font-size:.9rem;text-transform:uppercase;cursor:pointer}
+  .otp-in{width:100%;padding:.8rem;border:2px solid var(--gold);border-radius:10px;background:#fff;color:var(--red-dark);font-family:inherit;font-size:1.6rem;font-weight:900;letter-spacing:.5em;text-align:center;margin:.4rem 0 .5rem}
+  .otp-err{min-height:1.2rem;color:#ffb4b4;font-size:.8rem;font-weight:700;text-align:center;margin-bottom:.6rem}
+  .popup button.sec{background:transparent;color:var(--gold-light);border:1.5px solid var(--gold);margin-top:.5rem}
+  .popup button:disabled{opacity:.5;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <div class="logo-wrap">
+      <img src="logof.png" alt="Filemon Kocia Kawiarnia" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="logo-fallback" style="display:none">Filemon Kocia Kawiarnia</span>
+    </div>
+    <h1>Oferta świąteczna</h1>
+    <p>Zamów ciasta na święta &bull; odbiór 23 grudnia</p>
+  </div>
+</header>
+
+<div class="info-bar">
+  <div class="rules">
+    <div class="rule"><div class="k">Zamówienia do</div><div class="v">20 grudnia</div></div>
+    <div class="rule"><div class="k">Zaliczka 50 zł</div><div class="v">zaksięgowana do 21 grudnia</div></div>
+    <div class="rule"><div class="k">Odbiór</div><div class="v">23 grudnia, godz. 11:00–19:00<br>Hallera 21a, Starogard Gdański</div></div>
+    <div class="rule"><div class="k">Telefon</div><div class="v">576 357 522</div></div>
+  </div>
+</div>
+
+<div id="closedMsg" style="display:none"></div>
+
+<div id="app">
+<div class="warn">
+  <div class="warn-box">
+    <strong>Ważne zasady:</strong>
+    zamówienie jest przyjęte dopiero po zaksięgowaniu zaliczki (50 zł) na naszym koncie <strong>najpóźniej 21 grudnia</strong>.
+    Bez zaksięgowanej zaliczki w tym terminie zamówienie przepada.
+    Jeśli zaliczka zostanie wpłacona, a zamówienie nie zostanie odebrane <strong>23 grudnia w godz. 11:00–19:00</strong>, zaliczka przepada.
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="menu">
+    <h2>Wybierz ciasta</h2>
+    <div id="menuList"></div>
+  </div>
+
+  <div class="form-col">
+    <div class="card">
+      <div class="card-top"><h2>Formularz zamówienia</h2></div>
+      <div class="card-body">
+        <div class="sum">
+          <span class="sum-label">Twoje zamówienie</span>
+          <div id="sumLines"><span class="sum-empty">Wybierz ilości ciast z listy</span></div>
+        </div>
+        <div class="err" id="cakeErr" style="margin:-.6rem 0 .9rem">Wybierz co najmniej jedno ciasto.</div>
+
+        <div class="pay">
+          <div><div class="l">Wartość</div><div class="v" id="pTotal">—</div></div>
+          <div><div class="l">Zaliczka</div><div class="v dep" id="pDep">—</div></div>
+          <div><div class="l">Przy odbiorze</div><div class="v" id="pRest">—</div></div>
+        </div>
+
+        <div class="divider"><span>Dane klienta</span></div>
+        <div class="f">
+          <label>Imię i nazwisko <span class="req">*</span></label>
+          <input type="text" id="fName" autocomplete="name">
+          <div class="err" id="nameErr">Podaj imię i nazwisko (dwa wyrazy).</div>
+        </div>
+        <div class="f">
+          <label>Numer telefonu <span class="req">*</span></label>
+          <input type="tel" id="fPhone" placeholder="500-123-123" maxlength="11" inputmode="numeric">
+          <div class="err" id="phoneErr">Podaj numer w formacie 500-123-123.</div>
+        </div>
+
+        <div class="divider"><span>Odbiór 23 grudnia</span></div>
+        <div class="pickup-note">Odbiór <b>23 grudnia</b> w dowolnej chwili między <b>11:00 a 19:00</b> &bull; ul. Hallera 21a, Starogard Gdański</div>
+        <div class="f">
+          <label>Uwagi do zamówienia</label>
+          <textarea id="fNotes"></textarea>
+        </div>
+
+        <label class="agree">
+          <input type="checkbox" id="fAgree">
+          <span>Rozumiem, że zamówienie zostanie przyjęte po zaksięgowaniu zaliczki 50 zł do 21 grudnia (inaczej przepada) oraz że zaliczka przepada, jeśli nie odbiorę zamówienia 23 grudnia w godz. 11:00–19:00.</span>
+        </label>
+        <div class="err" id="agreeErr">Zaznacz zgodę, aby złożyć zamówienie.</div>
+
+        <button class="btn" id="btnSend" onclick="sendOrder()">Złóż zamówienie</button>
+        <p class="foot">Filemon Kocia Kawiarnia &bull; ul. Hallera 21a, Starogard Gdański</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="overlay" id="otpOverlay">
+  <div class="popup">
+    <h3>Potwierdź numer telefonu</h3>
+    <p>Wysłaliśmy 4-cyfrowy kod SMS na numer <b id="otpPhone"></b>. Wpisz go poniżej, aby złożyć zamówienie.</p>
+    <input class="otp-in" id="otpInput" type="text" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="••••">
+    <div class="otp-err" id="otpErr"></div>
+    <button id="otpOk">Potwierdź</button>
+    <button class="sec" id="otpResend" disabled>Wyślij kod ponownie</button>
+    <button class="sec" id="otpCancel">Anuluj</button>
+  </div>
+</div>
+
+<div class="overlay" id="okOverlay">
+  <div class="popup">
+    <h3>Dziękujemy za zamówienie!</h3>
+    <div class="popup-box" id="okSummary"></div>
+    <p id="okPay"></p>
+    <button onclick="location.reload()">Zamknij</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, doc, setDoc, updateDoc }
+  from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+/* ═══ USTAWIENIA ═══ */
+const ORDER_DEADLINE = '2026-12-20';   // ostatni dzień składania zamówień (włącznie)
+const PAY_DEADLINE   = '2026-12-21';   // zaliczka musi być zaksięgowana najpóźniej tego dnia
+const PICKUP_DATE    = '2026-12-23';   // dzień odbioru
+const DEPOSIT_FIXED  = 50;           // stała zaliczka (zł), niezależnie od wartości zamówienia
+const PICKUP_FROM = '11:00', PICKUP_TO = '19:00';
+/* Dane do przelewu — uzupełnij numer konta, a pojawi się w potwierdzeniu po złożeniu zamówienia */
+const BANK_ACCOUNT = '38 1140 2004 0000 3402 8231 5170';
+const BANK_HOLDER  = 'Filemon Kocia Kawiarnia';
+/* Wysyłka SMS — ten sam serwer-pośrednik SMSAPI, z którego korzysta sms.html */
+/* Adres nowej aplikacji Google Apps Script (wysyłka SMS + kod weryfikacyjny) — wklej po wdrożeniu */
+const SMS_API_URL = 'https://script.google.com/macros/s/AKfycbxaBwbbvPMm9xPmmi8tn6wU5qwZYRUqxGKgKjMUWF4T1eKGG8PECkfYUyMsEvcrVHPEnA/exec';
+const FORMSPREE_URL = 'https://formspree.io/f/mpqnornq'; // powiadomienie e-mail o nowym zamówieniu
+
+const MENU = [
+  {id:'sernik-baskijski-smietankowy', name:'Sernik baskijski śmietankowy', price:170},
+  {id:'sernik-baskijski-pistacjowy',  name:'Sernik baskijski pistacjowy', price:190},
+  {id:'sernik-korzenny-lotus',        name:'Sernik korzenny Lotus', sub:'(Biscoff)', price:170},
+  {id:'tarta-biala-czekolada',        name:'Tarta z białej czekolady z owocami', price:160},
+  {id:'beza-pistacjowo-malinowa',     name:'Beza pistacjowo-malinowa', price:190},
+  {id:'beza-piernikowa',              name:'Beza piernikowa z powidłami śliwkowymi', price:180},
+  {id:'cookie-pie-lotus',             name:'Lotus Biscoff Cookie Pie', price:190},
+  {id:'cookie-pie-piernikowe',        name:'Piernikowe Cookie Pie', price:190},
+  {id:'piernik-powidla',              name:'Piernik z powidłami i polewą czekoladową', price:130}
+];
+const qty = {}; MENU.forEach(m=>qty[m.id]=0);
+
+const app = initializeApp({
+  apiKey: "AIzaSyBOGm3N-8zPtjvVv7hx1F-jqFpBU-dD7RY",
+  authDomain: "rezerwacja-af82e.firebaseapp.com",
+  projectId: "rezerwacja-af82e",
+  storageBucket: "rezerwacja-af82e.firebasestorage.app",
+  messagingSenderId: "316318620114",
+  appId: "1:316318620114:web:453d19957ab0af4f8b100b"
+});
+const db = getFirestore(app);
+
+/* ═══ POMOCNICZE ═══ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function todayWarsaw(){ return new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Warsaw'}).format(new Date()); }
+function isOpen(){ return todayWarsaw() <= ORDER_DEADLINE; }
+function phoneDigits(v){
+  let d=(v||'').replace(/\D/g,'');
+  if(d.startsWith('0048'))d=d.slice(4); else if(d.startsWith('48')&&d.length>9)d=d.slice(2);
+  return d.slice(0,9);
+}
+function formatPhone(v){
+  const d=phoneDigits(v), p=[];
+  if(d.length>0)p.push(d.slice(0,3)); if(d.length>3)p.push(d.slice(3,6)); if(d.length>6)p.push(d.slice(6,9));
+  return p.join('-');
+}
+function bezOgonkow(str){
+  const m={'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z','Ą':'A','Ć':'C','Ę':'E','Ł':'L','Ń':'N','Ó':'O','Ś':'S','Ź':'Z','Ż':'Z'};
+  return String(str).replace(/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/g,c=>m[c]);
+}
+async function api(body){
+  const res=await fetch(SMS_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});
+  return await res.json();
+}
+/* Weryfikacja numeru: 4-cyfrowy kod SMS. Zamówienie (i SMS z danymi do wpłaty) tylko po poprawnym kodzie. */
+function askOtp(phone){
+  return new Promise(resolve=>{
+    const ov=$('otpOverlay'), inp=$('otpInput'), err=$('otpErr'), okb=$('otpOk'), rs=$('otpResend'), cc=$('otpCancel');
+    $('otpPhone').textContent=phone;
+    inp.value=''; err.textContent=''; ov.classList.add('show');
+    let timer=null, done=false;
+    function finish(v){ if(done)return; done=true; clearInterval(timer); ov.classList.remove('show'); okb.onclick=rs.onclick=cc.onclick=null; resolve(v); }
+    function cooldown(){
+      let s=60; rs.disabled=true; rs.textContent='Wyślij ponownie ('+s+')'; clearInterval(timer);
+      timer=setInterval(()=>{ s--; if(s<=0){clearInterval(timer);rs.disabled=false;rs.textContent='Wyślij kod ponownie';} else rs.textContent='Wyślij ponownie ('+s+')'; },1000);
+    }
+    async function sendCode(){
+      err.textContent='Wysyłanie kodu...'; rs.disabled=true;
+      try{
+        const r=await api({action:'otp_send',phone:phoneDigits(phone)});
+        if(r&&r.count>0){ err.textContent=''; cooldown(); }
+        else if(r&&r.error==='cooldown'){ err.textContent='Kod został już wysłany. Poczekaj chwilę.'; cooldown(); }
+        else if(r&&r.error==='limit'){ err.textContent='Przekroczono limit kodów dla tego numeru. Zadzwoń: 576 357 522.'; }
+        else { err.textContent='Nie udało się wysłać kodu. Sprawdź numer lub spróbuj za chwilę.'; rs.disabled=false; }
+      }catch(e){ err.textContent='Brak połączenia. Spróbuj ponownie.'; rs.disabled=false; }
+    }
+    okb.onclick=async()=>{
+      const code=inp.value.replace(/\D/g,'');
+      if(code.length!==4){ err.textContent='Wpisz 4 cyfry z SMS-a.'; return; }
+      okb.disabled=true;
+      try{
+        const r=await api({action:'otp_check',phone:phoneDigits(phone),otp:code});
+        if(r&&r.ok){ okb.disabled=false; finish(true); return; }
+        err.textContent = r&&r.error==='otp_wrong' ? 'Błędny kod. Pozostało prób: '+r.left+'.'
+          : r&&r.error==='otp_tries' ? 'Zbyt wiele błędnych prób. Wyślij nowy kod.'
+          : r&&r.error==='otp_expired' ? 'Kod wygasł. Wyślij nowy kod.'
+          : 'Nie udało się zweryfikować kodu.';
+      }catch(e){ err.textContent='Brak połączenia. Spróbuj ponownie.'; }
+      okb.disabled=false;
+    };
+    rs.onclick=sendCode; cc.onclick=()=>finish(false);
+    sendCode();
+  });
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function orderCode(){
+  const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s='';
+  for(let i=0;i<5;i++)s+=a[Math.floor(Math.random()*a.length)];
+  return 'FIL-'+s;
+}
+
+/* ═══ START ═══ */
+if(!isOpen()){
+  $('app').style.display='none';
+  $('closedMsg').style.display='block';
+  $('closedMsg').innerHTML='<div class="closed"><h2>Zamówienia zamknięte</h2><p>Przyjmowanie zamówień świątecznych zakończyło się 20 grudnia. Zapraszamy do kawiarni lub pod numer 576 357 522.</p></div>';
+}
+
+
+function renderMenu(){
+  $('menuList').innerHTML=MENU.map(m=>`
+    <div class="item${qty[m.id]>0?' on':''}" id="it-${m.id}">
+      <div class="item-name">${esc(m.name)}${m.sub?' <small>'+esc(m.sub)+'</small>':''}</div>
+      <div class="item-price">${m.price} zł</div>
+      <div class="qty">
+        <button type="button" data-id="${m.id}" data-d="-1">−</button>
+        <span id="q-${m.id}">${qty[m.id]}</span>
+        <button type="button" data-id="${m.id}" data-d="1">+</button>
+      </div>
+    </div>`).join('');
+}
+$('menuList').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-id]'); if(!b)return;
+  const id=b.dataset.id, d=parseInt(b.dataset.d);
+  qty[id]=Math.max(0,Math.min(99,qty[id]+d));
+  $('q-'+id).textContent=qty[id];
+  $('it-'+id).classList.toggle('on',qty[id]>0);
+  update();
+});
+
+function selected(){
+  return MENU.filter(m=>qty[m.id]>0).map(m=>({name:m.name,qty:qty[m.id],price:m.price,line:m.price*qty[m.id]}));
+}
+function totals(){
+  const total=selected().reduce((s,i)=>s+i.line,0);
+  const deposit=Math.min(DEPOSIT_FIXED,total);
+  return {total,deposit,rest:total-deposit};
+}
+function update(){
+  const sel=selected(), t=totals();
+  $('sumLines').innerHTML = sel.length
+    ? sel.map(i=>`<div class="sum-line"><span>${i.qty}× ${esc(i.name)}</span><span>${i.line} zł</span></div>`).join('')
+    : '<span class="sum-empty">Wybierz ilości ciast z listy</span>';
+  $('pTotal').textContent = sel.length ? t.total+' zł' : '—';
+  $('pDep').textContent   = sel.length ? t.deposit+' zł' : '—';
+  $('pRest').textContent  = sel.length ? t.rest+' zł' : '—';
+  if(sel.length)$('cakeErr').style.display='none';
+}
+renderMenu(); update();
+
+$('fPhone').addEventListener('input',function(){
+  const d=this.value.replace(/\D/g,'').slice(0,9);
+  this.value = d.length>6 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6) : d.length>3 ? d.slice(0,3)+'-'+d.slice(3) : d;
+});
+
+function flag(errId,fieldId,bad){
+  $(errId).style.display=bad?'block':'none';
+  if(fieldId)$(fieldId).classList.toggle('has-error',bad);
+}
+
+let sending=false;
+window.sendOrder=async function(){
+  if(sending)return;
+  if(!isOpen()){ location.reload(); return; }
+  const sel=selected();
+  let ok=true;
+  if(!sel.length){ flag('cakeErr',null,true); ok=false; }
+  const name=$('fName').value.trim().replace(/\s+/g,' ');
+  const parts=name.split(' ').filter(p=>p.length>=2);
+  if(parts.length<2){ flag('nameErr','fName',true); ok=false; } else flag('nameErr','fName',false);
+  const phone=formatPhone($('fPhone').value);
+  if(phoneDigits(phone).length!==9){ flag('phoneErr','fPhone',true); ok=false; } else flag('phoneErr','fPhone',false);
+  if(!$('fAgree').checked){ $('agreeErr').style.display='block'; ok=false; } else $('agreeErr').style.display='none';
+  if(!ok){ const e=document.querySelector('.has-error'); if(e)e.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+  const t=totals();
+  const notes=$('fNotes').value.trim();
+  const id=uid(), code=orderCode();
+  const cakeList=sel.map(i=>i.qty+'× '+i.name).join(', ');
+  const btn=$('btnSend');
+  sending=true; btn.disabled=true; btn.textContent='Weryfikacja numeru...';
+  const verified=await askOtp(phone);
+  if(!verified){ sending=false; btn.disabled=false; btn.textContent='Złóż zamówienie'; return; }
+  btn.textContent='Wysyłanie...';
+
+  try{
+    await setDoc(doc(db,'reservations',id),{
+      id, type:'xmas', source:'online', orderCode:code,
+      date:PICKUP_DATE, time:PICKUP_FROM, pickupWindow:PICKUP_FROM+'–'+PICKUP_TO, name, phone,
+      items:sel, cakeList, total:t.total, deposit:t.deposit, rest:t.rest,
+      depositPaid:false, payDeadline:PAY_DEADLINE,
+      adults:0, kids:0, kidsAge:null, table:'', notes,
+      noShow:false, arrived:false, cancelled:false,
+      addedBy:'Formularz online', clientSynced:false, createdAt:new Date().toISOString()
+    });
+  }catch(e){
+    console.error(e);
+    sending=false; btn.disabled=false; btn.textContent='Złóż zamówienie';
+    alert('Nie udało się zapisać zamówienia. Sprawdź połączenie i spróbuj ponownie albo zadzwoń: 576 357 522.');
+    return;
+  }
+
+  // SMS z danymi do wpłaty — buduje i wysyła serwer (tylko po zweryfikowanym numerze)
+  let smsSent=false;
+  try{
+    const r=await api({action:'order',phone:phoneDigits(phone),name,code,items:sel.map(i=>({name:i.name,qty:i.qty}))});
+    smsSent=!!(r&&r.count>0);
+    if(smsSent) await updateDoc(doc(db,'reservations',id),{xmasSmsOrderSent:true,xmasSmsOrderText:String(r.text||'').slice(0,700),xmasSmsOrderSentAt:new Date().toISOString()});
+  }catch(e){ console.warn('SMS nie wysłany',e); }
+
+  // powiadomienie e-mail (nie blokuje zamówienia)
+  try{
+    fetch(FORMSPREE_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({_subject:'Nowe zamówienie ŚWIĄTECZNE '+code+' — Filemon',
+        numer_zamowienia:code, imie_nazwisko:name, telefon:phone, odbior:PICKUP_DATE+' '+PICKUP_FROM+'–'+PICKUP_TO,
+        zamowienie:cakeList, wartosc:t.total+' zl', zaliczka:t.deposit+' zl',
+        zaliczka_do:PAY_DEADLINE, uwagi:notes||'—'})});
+  }catch(e){}
+
+  $('okSummary').innerHTML=
+    `<div class="code">${code}</div>`+
+    `<strong>Zamówienie:</strong> ${esc(cakeList)}<br>`+
+    `<strong>Wartość:</strong> ${t.total} zł<br>`+
+    `<strong>Zaliczka:</strong> ${t.deposit} zł<br>`+
+    `<strong>Do zapłaty przy odbiorze:</strong> ${t.rest} zł<br>`+
+    `<strong>Odbiór:</strong> 23 grudnia, w godz. 11:00–19:00<br>`+
+    `<strong>Klient:</strong> ${esc(name)}, tel. ${esc(phone)}`;
+  const bank = BANK_ACCOUNT
+    ? `Wpłać zaliczkę <b>${t.deposit} zł</b> na konto <b>${esc(BANK_ACCOUNT)}</b> (${esc(BANK_HOLDER)}), w tytule wpisz <b>${code}</b>.`
+    : `Dane do przelewu zaliczki <b>${t.deposit} zł</b> otrzymasz od nas. W tytule przelewu wpisz numer <b>${code}</b>.`;
+  const smsInfo = smsSent ? ' Wysłaliśmy też SMS z tymi informacjami.' : '';
+  $('okPay').innerHTML = bank+smsInfo+' <b>Zaliczka musi zostać zaksięgowana najpóźniej 21 grudnia</b> — po tym terminie zamówienie przepada. Zamówienie jest przyjęte po zaksięgowaniu zaliczki. Reszta ('+t.rest+' zł) płatna przy odbiorze.';
+  $('okOverlay').classList.add('show');
+  sending=false; btn.disabled=false; btn.textContent='Złóż zamówienie';
+};
+</script>
+</body>
+</html>
