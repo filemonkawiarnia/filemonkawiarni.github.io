@@ -1,0 +1,31 @@
+{
+ "id": "/rez.html",
+ "name": "Filemon Rezerwacje",
+ "short_name": "Filemon",
+ "start_url": "/rez.html",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#2C3E6A",
+ "theme_color": "#2C3E6A",
+ "icons": [
+  {
+   "src": "/rez-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/rez-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/rez-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
