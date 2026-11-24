@@ -1846,7 +1846,7 @@ window.toggleArrived=async function(id){
   const r=dayReservations[id];if(!r)return;
   const newVal=!r.arrived;
   if(r.type==='cake'&&newVal&&todayStr()<(r.date||'')){toast('Odebrane można zaznaczyć dopiero w dniu odbioru ('+r.date+')');return;}
-  if(r.type!=='cake'&&r.type!=='xmas'&&newVal&&!arrivalAllowed(r)){toast('Przybycie można potwierdzić najwcześniej '+ARRIVAL_LEAD_MIN+' min przed godziną rezerwacji');return;}
+  if(r.type!=='cake'&&r.type!=='xmas'&&newVal&&!arrivalAllowed(r)){toast(' ');return;}
   setSyncState('syncing');
   try{
     const patch={arrived:newVal};
@@ -1895,7 +1895,7 @@ window.toggleCakeNotPickedUp=async function(id){
 window.toggleNoShow=async function(id){
   const r=dayReservations[id];if(!r)return;
   const newVal=!r.noShow;
-  if(newVal&&!noShowAllowed(r)){toast('Nieobecność można oznaczyć dopiero od godziny rezerwacji ('+r.date+', '+r.time+')');return;}
+  if(newVal&&!noShowAllowed(r)){toast(' ');return;}
   setSyncState('syncing');
   try{
     const patch={noShow:newVal};
