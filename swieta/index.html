@@ -434,7 +434,7 @@ window.sendOrder=async function(){
   // powiadomienie e-mail (nie blokuje zamówienia)
   try{
     fetch(FORMSPREE_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({_subject:'Nowe zamówienie ŚWIĄTECZNE '+code+' — Filemon',
+      body:JSON.stringify({_subject:'Nowe zamówienie ŚWIĄTECZNE '+code+' - Filemon',
         numer_zamowienia:code, imie_nazwisko:name, telefon:phone, odbior:PICKUP_DATE+' '+PICKUP_FROM+'–'+PICKUP_TO,
         zamowienie:cakeList, wartosc:t.total+' zl', zaliczka:t.deposit+' zl',
         zaliczka_do:PAY_DEADLINE, uwagi:notes||'—'})});
