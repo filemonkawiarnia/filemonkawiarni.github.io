@@ -1581,7 +1581,7 @@ window.openDetail=function(id){
     ${resAddedLabel(r)?`<div class="detail-row"><span class="detail-label">Dodano</span><span class="detail-value">${resAddedLabel(r)}</span></div>`:''}
     ${r.addedBy?`<div class="detail-row"><span class="detail-label">Przyjął/-ęła</span><span class="detail-value">${r.addedBy}</span></div>`:''}
     ${(!r.arrived&&!arrivalAllowed(r))?`<div class="sms-note">${arrivalHint(r)}</div>`:''}
-    ${(!r.noShow&&!noShowAllowed(r))?`<div class="sms-note">Nieobecność można oznaczyć dopiero od godziny rezerwacji (${escHtml(r.date||'')}, ${escHtml(r.time||'')}).</div>`:''}
+    ${(!r.noShow&&!noShowAllowed(r))?`<div class="sms-note"> </div>`:''}
     <div class="det-actions">
       <button class="btn-primary" onclick="editRes('${id}')">Edytuj</button>
       <button class="btn-primary ${r.arrived?' btn-ghost':' btn-success'}" ${(!r.arrived&&!arrivalAllowed(r))?'disabled':''} onclick="toggleArrived('${id}')">${r.arrived?'<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Cofnij przybycie':'Potwierdź przybycie'}</button>
