@@ -1580,7 +1580,7 @@ window.openDetail=function(id){
     ${nsCount>0?`<div class="detail-row"><span class="detail-label">Nieobecności klienta</span><span class="detail-value"><span class="badge-ns"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> ${nsCount}</span></span></div>`:''}
     ${resAddedLabel(r)?`<div class="detail-row"><span class="detail-label">Dodano</span><span class="detail-value">${resAddedLabel(r)}</span></div>`:''}
     ${r.addedBy?`<div class="detail-row"><span class="detail-label">Przyjął/-ęła</span><span class="detail-value">${r.addedBy}</span></div>`:''}
-    ${(!r.arrived&&!arrivalAllowed(r))?`<div class="sms-note">${arrivalHint(r)}</div>`:''}
+    ${(!r.arrived&&!arrivalAllowed(r))?`<div class="sms-note"> </div>`:''}
     ${(!r.noShow&&!noShowAllowed(r))?`<div class="sms-note"> </div>`:''}
     <div class="det-actions">
       <button class="btn-primary" onclick="editRes('${id}')">Edytuj</button>
