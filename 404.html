@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Nie znaleziono strony - Filemon Kocia Kawiarnia</title>
+<meta name="description" content="Tej strony nie ma. Wróć do Kociej Kawiarni Filemon w Starogardzie Gdańskim.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@600;700;800&display=swap">
+<style>
+  /* Kolory i czcionki jak na stronie głównej Filemona. */
+  :root {
+    --navy:      #2C3E6A;
+    --navy-dark: #1E2E52;
+    --navy-mid:  #334470;
+    --fuchsia:   #E8387A;
+    --fuchsia-light: #F05C96;
+    --fuchsia-pale:  #FCE8F1;
+    --yellow:    #F5C842;
+    --yellow-pale: #FEF5D4;
+    --white:     #FFFFFF;
+    --off-white: #F8F6FF;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { background: var(--navy-dark); }
+  body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: #fff;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ══ NAV (jak na stronie głównej) ══ */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--navy);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    box-shadow: 0 4px 24px rgba(17,29,53,0.35);
+  }
+  .nav-logo { display: inline-flex; align-items: center; text-decoration: none; }
+  .nav-logo img {
+    filter: brightness(1.4) drop-shadow(0 0 8px rgba(232,56,122,.35));
+    height: 50px;
+    display: block;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    color: #fff;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-links a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 4px; border-radius: 4px; }
+  .nav-links .nav-cta {
+    background: var(--fuchsia);
+    color: #fff;
+    padding: 0.5rem 1.3rem;
+    border-radius: 25px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-links .nav-cta:hover { background: var(--fuchsia-light); color: #fff; transform: translateY(-2px); }
+
+  /* ══ HERO ══ */
+  .hero {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(245,200,66,0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -140px; top: -100px;
+    width: 640px; height: 720px;
+    background: radial-gradient(ellipse at 70% 40%, rgba(232,56,122,0.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(245,200,66,0.12);
+    border: 1px solid rgba(245,200,66,0.3);
+    color: var(--yellow);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+  }
+  .scene-card {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    background: var(--navy-dark);
+  }
+  #scene { display: block; width: 100%; height: auto; }
+
+  .title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 5.2vw, 3.2rem);
+    line-height: 1.15;
+    margin-top: 2rem;
+    text-wrap: balance;
+  }
+  .title em { color: var(--fuchsia); font-style: italic; }
+  .underline-yellow { position: relative; display: inline-block; }
+  .underline-yellow::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 4px;
+    background: var(--yellow);
+    border-radius: 2px;
+  }
+  .desc {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.68);
+    max-width: 480px;
+    margin-top: 1.2rem;
+    text-wrap: pretty;
+  }
+  .btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 30px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .btn-primary { background: var(--fuchsia); color: #fff; box-shadow: 0 6px 24px rgba(232,56,122,0.35); }
+  .btn-primary:hover { background: var(--fuchsia-light); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(232,56,122,0.45); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: #fff; }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-3px); }
+  .btn-yellow { background: var(--yellow); color: var(--navy); box-shadow: 0 6px 24px rgba(245,200,66,0.35); }
+  .btn-yellow:hover { background: #FFD95E; transform: translateY(-3px); box-shadow: 0 10px 32px rgba(245,200,66,0.45); }
+  .hint { margin-top: 1.6rem; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+
+  /* ══ STOPKA (jak na stronie głównej) ══ */
+  footer {
+    background: var(--navy-dark);
+    border-top: 2px solid var(--fuchsia);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo { display: inline-flex; align-items: center; text-decoration: none; }
+  .footer-logo img { height: 32px; filter: brightness(1.5); opacity: 0.8; display: block; }
+  .footer-logo .wordmark { font-size: 1.3rem; opacity: 0.8; }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+  footer a.mail { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.78rem; }
+  footer a.mail:hover { color: var(--yellow); }
+
+  /* ══ SCENA ══ */
+  .svg-text { font-family: var(--font-body); }
+  .svg-display { font-family: var(--font-display); }
+  .neon { animation: flicker 7s linear infinite; }
+  @keyframes flicker {
+    0%, 17%, 22%, 61%, 65%, 100% { opacity: 1; }
+    18%, 21% { opacity: 0.3; }
+    19.5% { opacity: 0.85; }
+    62%, 64% { opacity: 0.4; }
+  }
+  .steam {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 4;
+    stroke-linecap: round;
+    opacity: 0;
+    animation: steam 3.4s ease-in-out infinite;
+  }
+  .st2 { animation-delay: 1.1s; }
+  @keyframes steam {
+    0% { transform: translateY(8px); opacity: 0; }
+    30% { opacity: 0.5; }
+    100% { transform: translateY(-20px); opacity: 0; }
+  }
+  .led { animation: led 2.4s ease-in-out infinite; }
+  @keyframes led { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.6; } }
+
+  #cat { cursor: pointer; outline: none; }
+  #cat:focus-visible .focus-ring { stroke: var(--yellow); }
+  .focus-ring { fill: none; stroke: transparent; stroke-width: 3; stroke-dasharray: 8 6; }
+  #cat.hop { animation: hop 0.45s ease-out; }
+  @keyframes hop {
+    0% { transform: translateY(0); }
+    40% { transform: translateY(-14px); }
+    100% { transform: translateY(0); }
+  }
+  #bubble {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    pointer-events: none;
+  }
+  #bubble.on { opacity: 1; transform: none; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links li:not(:last-child) { display: none; }
+    footer { flex-direction: column; text-align: center; padding: 1.5rem 2rem; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 1.6rem 1rem 3rem; }
+    .scene-card { border-radius: 18px; }
+    #scene { width: 135%; max-width: none; margin-left: -17.5%; }
+    .btn { width: 100%; justify-content: center; }
+    .btns { gap: 0.7rem; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .neon, .steam, .led { animation: none; }
+    .steam { opacity: 0.35; }
+    #cat.hop { animation: none; }
+    .btn, .nav-links a { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Filemon Kocia Kawiarnia, strona główna">
+    <img src="/logof.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+    <span class="wordmark" hidden>Filemon</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#o-nas">O nas</a></li>
+    <li><a href="/#koty">Nasze koty</a></li>
+    <li><a href="/#kontakt">Kontakt</a></li>
+    <li><a href="/#rezerwacja" class="nav-cta">Zarezerwuj stolik</a></li>
+  </ul>
+</nav>
+
+<main class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Błąd 404</span>
+
+    <div class="scene-card">
+      <svg id="scene" viewBox="0 0 900 470" role="group" aria-label="Ilustracja: w kawiarni rudy kot przegryza kabel ekspresu do kawy. Na ścianie świeci neon 404.">
+        <defs>
+          <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2B3C68"/>
+            <stop offset="1" stop-color="#1E2E52"/>
+          </linearGradient>
+          <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1A2748"/>
+            <stop offset="1" stop-color="#111B35"/>
+          </linearGradient>
+          <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F5C842" stop-opacity=".26"/>
+            <stop offset="1" stop-color="#F5C842" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="bulb">
+            <stop offset="0" stop-color="#F5C842" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#F5C842" stop-opacity="0"/>
+          </radialGradient>
+          <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+            <circle cx="14" cy="14" r="1.2" fill="#F5C842" fill-opacity=".07"/>
+          </pattern>
+          <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+            <feGaussianBlur stdDeviation="6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <g id="bean">
+            <ellipse rx="8" ry="5" fill="#7B4B2A"/>
+            <path d="M-6 0 Q0 -3 6 0" stroke="#C99A5B" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </g>
+          <path id="star" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/>
+          <path id="heart" d="M0 7 C-14 -3 -10 -13 -3.5 -13 C0 -13 0 -10 0 -9 C0 -10 0 -13 3.5 -13 C10 -13 14 -3 0 7 Z" fill="#F05C96"/>
+        </defs>
+
+        <!-- ściana, listwa i podłoga -->
+        <rect width="900" height="330" fill="url(#wall)"/>
+        <rect width="900" height="330" fill="url(#dots)"/>
+        <rect y="316" width="900" height="14" fill="#16223F"/>
+        <rect y="316" width="900" height="1.5" fill="#fff" fill-opacity=".08"/>
+        <rect y="330" width="900" height="140" fill="url(#floor)"/>
+        <g stroke="#fff" stroke-opacity=".045" stroke-width="2">
+          <line x1="0" y1="362" x2="900" y2="362"/>
+          <line x1="0" y1="402" x2="900" y2="402"/>
+          <line x1="0" y1="446" x2="900" y2="446"/>
+          <line x1="200" y1="330" x2="170" y2="362"/><line x1="470" y1="330" x2="450" y2="362"/><line x1="760" y1="330" x2="780" y2="362"/>
+          <line x1="90" y1="362" x2="60" y2="402"/><line x1="340" y1="362" x2="324" y2="402"/><line x1="610" y1="362" x2="620" y2="402"/>
+        </g>
+
+        <!-- tablica z menu -->
+        <rect x="110" y="40" width="200" height="170" rx="8" fill="#C99A5B"/>
+        <rect x="110" y="40" width="200" height="6" rx="3" fill="#fff" fill-opacity=".18"/>
+        <rect x="120" y="50" width="180" height="150" rx="4" fill="#0F1832"/>
+        <text x="210" y="78" text-anchor="middle" class="svg-text" font-size="12" font-weight="800" letter-spacing="2.5" fill="#F5C842">DZIŚ W MENU</text>
+        <path d="M150 88 H270" stroke="#fff" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <g class="svg-text" font-size="20" font-weight="700" fill="#fff" fill-opacity=".9">
+          <text x="140" y="118">kawa</text>
+          <text x="140" y="150">ciasto</text>
+          <text x="140" y="182">ta strona</text>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4">
+          <path d="M264 112 l6 7 l12 -16" stroke="#F5C842"/>
+          <path d="M264 144 l6 7 l12 -16" stroke="#F5C842"/>
+          <path d="M265 166 l15 15 M280 166 l-15 15" stroke="#F05C96"/>
+          <path d="M136 177 H228" stroke="#F05C96" stroke-width="2.4" stroke-opacity=".85"/>
+        </g>
+
+        <!-- neon -->
+        <g class="neon" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <text x="470" y="180" text-anchor="middle" class="svg-display" font-size="124" stroke="#F05C96" stroke-width="4" fill="#E8387A" fill-opacity=".1" filter="url(#glow)">404</text>
+          <path d="M392 200 Q470 214 548 200" stroke="#F5C842" stroke-width="4" filter="url(#glow)"/>
+        </g>
+
+        <!-- lampy -->
+        <g>
+          <animateTransform attributeName="transform" type="rotate" values="-2.4 60 0;2.4 60 0;-2.4 60 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="5.2s" repeatCount="indefinite"/>
+          <polygon points="46,108 74,108 170,330 -50,330" fill="url(#cone)"/>
+          <line x1="60" y1="0" x2="60" y2="64" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="106" r="40" fill="url(#bulb)"/>
+          <path d="M30 100 Q30 64 60 64 Q90 64 90 100 Z" fill="#E8387A"/>
+          <circle cx="60" cy="104" r="8" fill="#F5C842"/>
+        </g>
+        <g>
+          <animateTransform attributeName="transform" type="rotate" values="2.4 640 0;-2.4 640 0;2.4 640 0" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="6s" repeatCount="indefinite"/>
+          <polygon points="626,108 654,108 750,330 530,330" fill="url(#cone)"/>
+          <line x1="640" y1="0" x2="640" y2="64" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="640" cy="106" r="40" fill="url(#bulb)"/>
+          <path d="M610 100 Q610 64 640 64 Q670 64 670 100 Z" fill="#E8387A"/>
+          <circle cx="640" cy="104" r="8" fill="#F5C842"/>
+        </g>
+
+        <!-- gniazdko -->
+        <rect x="52" y="250" width="46" height="62" rx="9" fill="#F8F6FF"/>
+        <circle cx="75" cy="261" r="2.2" fill="#CFCBE3"/>
+        <rect x="64" y="274" width="5" height="12" rx="2" fill="#2C3E6A"/>
+        <rect x="80" y="274" width="5" height="12" rx="2" fill="#2C3E6A"/>
+        <g transform="translate(75 292)">
+          <g>
+            <animateTransform attributeName="transform" type="scale" values="0.2;1;0.2" dur="1.1s" begin="0.2s" repeatCount="indefinite"/>
+            <use href="#star" fill="#F5C842"/>
+          </g>
+        </g>
+
+        <!-- ladą i ekspres -->
+        <rect x="600" y="274" width="300" height="118" fill="#1B2A4A"/>
+        <rect x="600" y="290" width="300" height="4" fill="#E8387A"/>
+        <rect x="616" y="308" width="124" height="68" rx="4" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="2"/>
+        <rect x="760" y="308" width="124" height="68" rx="4" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="2"/>
+        <rect x="592" y="262" width="308" height="14" rx="3" fill="#3C4F84"/>
+        <rect x="592" y="262" width="308" height="2" rx="1" fill="#fff" fill-opacity=".22"/>
+        <rect x="596" y="388" width="304" height="8" fill="#000" fill-opacity=".22"/>
+
+        <!-- ekspres -->
+        <rect x="662" y="122" width="22" height="16" rx="4" fill="#FCE8F1"/>
+        <rect x="692" y="122" width="22" height="16" rx="4" fill="#FCE8F1"/>
+        <rect x="644" y="138" width="136" height="22" rx="8" fill="#DDD9F0"/>
+        <rect x="650" y="158" width="124" height="104" rx="10" fill="#F8F6FF"/>
+        <rect x="650" y="190" width="124" height="8" fill="#E8387A"/>
+        <circle cx="684" cy="224" r="13" fill="#fff" stroke="#2C3E6A" stroke-width="3"/>
+        <path d="M684 224 L676 232" stroke="#E8387A" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="752" cy="174" r="6" fill="#9A9FB8"/>
+        <circle cx="752" cy="174" r="6" fill="none" stroke="#E8387A" stroke-width="2" class="led"/>
+        <rect x="706" y="206" width="44" height="14" rx="4" fill="#2C3E6A"/>
+        <rect x="718" y="218" width="20" height="8" rx="2" fill="#1E2E52"/>
+        <rect x="688" y="250" width="68" height="10" rx="3" fill="#2C3E6A"/>
+        <rect x="712" y="236" width="22" height="15" rx="4" fill="#fff"/>
+        <circle cx="650" cy="246" r="3.4" fill="#2C3E6A"/>
+
+        <!-- filiżanka z parą -->
+        <ellipse cx="803" cy="262" rx="22" ry="4" fill="#F8F6FF"/>
+        <path d="M816 244 q11 0 11 9 q0 8 -11 8" fill="none" stroke="#E8387A" stroke-width="4" stroke-linecap="round"/>
+        <rect x="790" y="238" width="26" height="24" rx="7" fill="#E8387A"/>
+        <ellipse cx="803" cy="238" rx="13" ry="3.6" fill="#4A2C1B"/>
+        <path class="steam" d="M797 232 q-6 -9 0 -16 t0 -16"/>
+        <path class="steam st2" d="M809 232 q-6 -9 0 -16 t0 -16"/>
+
+        <!-- ciasto pod kloszem -->
+        <path d="M852 262 L854 250 H870 L872 262 Z" fill="#F8F6FF"/>
+        <ellipse cx="862" cy="249" rx="38" ry="5" fill="#F8F6FF"/>
+        <rect x="838" y="226" width="48" height="22" rx="4" fill="#E8C58A"/>
+        <rect x="838" y="235" width="48" height="5" fill="#FCE8F1"/>
+        <path d="M838 230 Q862 216 886 230 L886 226 Q862 212 838 226 Z" fill="#F05C96"/>
+        <circle cx="862" cy="218" r="5" fill="#E8387A"/>
+        <path d="M828 249 C828 196 896 196 896 249 Z" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+        <circle cx="862" cy="200" r="4" fill="#fff" fill-opacity=".5"/>
+
+        <!-- ziarna kawy -->
+        <use href="#bean" transform="translate(110 446) rotate(20)"/>
+        <use href="#bean" transform="translate(128 454) rotate(-35)"/>
+        <use href="#bean" transform="translate(320 452) rotate(70)"/>
+        <use href="#bean" transform="translate(560 456) rotate(-15)"/>
+        <use href="#bean" transform="translate(580 448) rotate(40)"/>
+        <use href="#bean" transform="translate(770 440) rotate(10)"/>
+
+        <!-- kabel od ekspresu po podłodze (pod kotem) -->
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M650 246 C628 246 618 258 626 276 C634 304 622 350 608 388 C600 412 560 426 500 424 C470 423 440 424 420 423" stroke="#16213F" stroke-width="9"/>
+          <path d="M650 246 C628 246 618 258 626 276 C634 304 622 350 608 388 C600 412 560 426 500 424 C470 423 440 424 420 423" stroke="#EDEAFB" stroke-width="5"/>
+        </g>
+
+        <!-- wtyczka wyciągnięta z gniazdka -->
+        <g transform="translate(150 424) rotate(-4)">
+          <rect x="-16" y="-8" width="17" height="4" rx="1.5" fill="#B7B3CF"/>
+          <rect x="-16" y="4" width="17" height="4" rx="1.5" fill="#B7B3CF"/>
+          <rect x="0" y="-12" width="46" height="24" rx="7" fill="#F8F6FF" stroke="#16213F" stroke-width="2"/>
+          <path d="M10 -5 v10 M18 -5 v10" stroke="#CFCBE3" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+        <!-- kot -->
+        <g transform="translate(440 420)">
+          <g id="cat" tabindex="0" role="button" aria-label="Pogłaskaj kota">
+            <rect class="focus-ring" x="-150" y="-165" width="320" height="180" rx="16"/>
+            <rect x="-150" y="-165" width="320" height="180" fill="#000" fill-opacity="0"/>
+
+            <ellipse cx="10" cy="6" rx="132" ry="9" fill="#000" fill-opacity=".28"/>
+
+            <!-- ogon -->
+            <g fill="none" stroke-linecap="round">
+              <animateTransform attributeName="transform" type="rotate" values="-6 112 -52;9 112 -52;-6 112 -52" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="1.9s" repeatCount="indefinite"/>
+              <path d="M112 -52 C168 -52 178 -112 148 -152" stroke="#F0A24E" stroke-width="18"/>
+              <path d="M112 -52 C168 -52 178 -112 148 -152" stroke="#C97A24" stroke-width="18" stroke-linecap="butt" stroke-dasharray="6 24" stroke-dashoffset="-10" stroke-opacity=".85"/>
+              <path d="M148 -152 l-1 -1" stroke="#F8D3A0" stroke-width="18"/>
+            </g>
+
+            <!-- tułów i tylna łapa -->
+            <ellipse cx="35" cy="-62" rx="92" ry="46" fill="#F0A24E" transform="rotate(-5 35 -62)"/>
+            <ellipse cx="22" cy="-32" rx="62" ry="13" fill="#F8D3A0" fill-opacity=".85"/>
+            <g fill="none" stroke="#C97A24" stroke-width="6" stroke-linecap="round" stroke-opacity=".8">
+              <path d="M-6 -100 q8 14 2 30"/><path d="M24 -106 q8 14 2 32"/><path d="M54 -106 q8 14 2 32"/><path d="M84 -98 q6 14 0 28"/>
+            </g>
+            <ellipse cx="88" cy="-46" rx="36" ry="34" fill="#E8943C"/>
+            <path d="M70 -62 q10 8 8 22" fill="none" stroke="#C97A24" stroke-width="5" stroke-linecap="round" stroke-opacity=".7"/>
+            <ellipse cx="96" cy="-6" rx="25" ry="9" fill="#F8D3A0"/>
+
+            <!-- kabel od ekspresu do pyszczka -->
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="#16213F" stroke-width="9" d="M-20 3 C-40 3 -54 -20 -72 -42">
+                <animate attributeName="d" dur="0.6s" repeatCount="indefinite" values="M-20 3 C-40 3 -54 -20 -72 -42;M-20 3 C-40 3 -54 -18 -72 -39;M-20 3 C-40 3 -54 -20 -72 -42"/>
+              </path>
+              <path stroke="#EDEAFB" stroke-width="5" d="M-20 3 C-40 3 -54 -20 -72 -42">
+                <animate attributeName="d" dur="0.6s" repeatCount="indefinite" values="M-20 3 C-40 3 -54 -20 -72 -42;M-20 3 C-40 3 -54 -18 -72 -39;M-20 3 C-40 3 -54 -20 -72 -42"/>
+              </path>
+            </g>
+
+            <!-- przednie łapy -->
+            <path d="M-34 -48 L-72 -12" stroke="#E8943C" stroke-width="22" stroke-linecap="round" fill="none"/>
+            <ellipse cx="-78" cy="-7" rx="20" ry="9" fill="#F8D3A0"/>
+            <path d="M-12 -44 L-40 -12" stroke="#F0A24E" stroke-width="22" stroke-linecap="round" fill="none"/>
+            <ellipse cx="-47" cy="-7" rx="20" ry="9" fill="#F8D3A0">
+              <animateTransform attributeName="transform" type="translate" values="0 0;-8 -9;0 0;0 0" keyTimes="0;.25;.5;1" dur="1.5s" repeatCount="indefinite"/>
+            </ellipse>
+
+            <!-- kabel od pyszczka do wtyczki -->
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="#16213F" stroke-width="9" d="M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4">
+                <animate attributeName="d" dur="0.6s" repeatCount="indefinite" values="M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4;M-112 -39 C-134 -37 -134 0 -170 3 S-225 8 -242 4;M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4"/>
+              </path>
+              <path stroke="#EDEAFB" stroke-width="5" d="M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4">
+                <animate attributeName="d" dur="0.6s" repeatCount="indefinite" values="M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4;M-112 -39 C-134 -37 -134 0 -170 3 S-225 8 -242 4;M-112 -42 C-134 -40 -134 0 -170 3 S-225 8 -242 4"/>
+              </path>
+            </g>
+
+            <!-- głowa -->
+            <g>
+              <animateTransform attributeName="transform" type="translate" values="0 0;0 3;0 0" dur="0.6s" repeatCount="indefinite"/>
+              <g fill="#F0A24E" stroke="#F0A24E" stroke-width="6" stroke-linejoin="round">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" values="0 -110 -84;0 -110 -84;-10 -110 -84;0 -110 -84" keyTimes="0;.78;.86;1" dur="3.4s" repeatCount="indefinite"/>
+                  <path d="M-124 -78 L-122 -112 L-96 -90 Z"/>
+                </g>
+                <path d="M-60 -78 L-62 -112 L-88 -90 Z"/>
+              </g>
+              <path d="M-119 -86 L-118 -102 L-104 -92 Z" fill="#F4A3B8"/>
+              <path d="M-65 -86 L-66 -102 L-80 -92 Z" fill="#F4A3B8"/>
+              <circle cx="-92" cy="-58" r="37" fill="#F0A24E"/>
+              <g stroke="#C97A24" stroke-width="3.5" stroke-linecap="round">
+                <path d="M-92 -94 v12"/><path d="M-103 -92 l3 11"/><path d="M-81 -92 l-3 11"/>
+              </g>
+              <ellipse cx="-119" cy="-48" rx="7" ry="4.5" fill="#F4A3B8" fill-opacity=".75"/>
+              <ellipse cx="-65" cy="-48" rx="7" ry="4.5" fill="#F4A3B8" fill-opacity=".75"/>
+              <ellipse cx="-92" cy="-44" rx="18" ry="12" fill="#F8D3A0"/>
+              <g stroke="#1B2A4A" stroke-width="3.4" stroke-linecap="round" fill="none">
+                <path d="M-110 -63 q7 -9 14 0"/><path d="M-88 -63 q7 -9 14 0"/>
+              </g>
+              <path d="M-98 -51 h12 l-6 7 z" fill="#E8387A" stroke="#E8387A" stroke-width="1.6" stroke-linejoin="round"/>
+              <g fill="none" stroke-linecap="round">
+                <path d="M-118 -41 H-66" stroke="#16213F" stroke-width="9"/>
+                <path d="M-118 -41 H-66" stroke="#EDEAFB" stroke-width="5"/>
+              </g>
+              <g stroke="#fff" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round">
+                <path d="M-122 -50 l-26 -7"/><path d="M-122 -45 l-28 0"/>
+                <path d="M-62 -50 l26 -7"/><path d="M-62 -45 l28 0"/>
+              </g>
+              <path d="M-126 -34 Q-92 -18 -58 -34" fill="none" stroke="#E8387A" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="-92" cy="-24" r="6.5" fill="#F5C842" stroke="#D4A800" stroke-width="1.5"/>
+              <path d="M-95.5 -24 h7" stroke="#D4A800" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+
+            <!-- iskierki przy kablu -->
+            <g transform="translate(-124 -26)"><g><animateTransform attributeName="transform" type="scale" values="0.2;1;0.2" dur="0.9s" repeatCount="indefinite"/><use href="#star" fill="#F5C842"/></g></g>
+            <g transform="translate(-60 -22)"><g><animateTransform attributeName="transform" type="scale" values="0.2;0.9;0.2" dur="0.9s" begin="0.3s" repeatCount="indefinite"/><use href="#star" fill="#fff"/></g></g>
+            <g transform="translate(-98 -4)"><g><animateTransform attributeName="transform" type="scale" values="0.2;0.8;0.2" dur="0.9s" begin="0.6s" repeatCount="indefinite"/><use href="#star" fill="#F5C842"/></g></g>
+          </g>
+        </g>
+
+        <!-- serduszka i dymek -->
+        <g id="hearts"></g>
+        <g transform="translate(262 232)">
+          <g id="bubble">
+            <rect x="0" y="0" width="112" height="38" rx="19" fill="#fff"/>
+            <path d="M66 36 L82 36 L92 54 Z" fill="#fff"/>
+            <text id="bubbleText" x="56" y="25" text-anchor="middle" class="svg-text" font-size="17" font-weight="800" fill="#1B2A4A">mrau!</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="title">Tej strony nie ma,<br>bo kot przegryzł <span class="underline-yellow"><em>kabel</em></span></h1>
+    <p class="desc">Adres jest nieprawidłowy albo strona została przeniesiona. Kot twierdzi, że to nie on. Wróć do kawiarni i poszukaj stamtąd.</p>
+
+    <div class="btns">
+      <a href="/" class="btn btn-primary">Wróć na stronę główną</a>
+      <a href="/#koty" class="btn btn-outline">Poznaj nasze koty</a>
+      <a href="/#rezerwacja" class="btn btn-yellow">Zarezerwuj stolik</a>
+    </div>
+    <p class="hint">Kliknij kota, jeśli chcesz usłyszeć, co o tym sądzi.</p>
+  </div>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo" aria-label="Filemon Kocia Kawiarnia, strona główna">
+    <img src="/logof.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+    <span class="wordmark" hidden>Filemon</span>
+  </a>
+  <p>© 2026 Filemon Kocia Kawiarnia · ul. Hallera 21a, 83-200 Starogard Gdański</p>
+  <a class="mail" href="mailto:filemonkawiarnia@gmail.com">kontakt@filemonkawiarnia.pl</a>
+</footer>
+
+<script>
+  (function () {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.getElementById('scene');
+    var cat = document.getElementById('cat');
+    var bubble = document.getElementById('bubble');
+    var bubbleText = document.getElementById('bubbleText');
+    var hearts = document.getElementById('hearts');
+    var words = ['mrau!', 'to nie ja!', 'mrrr…', 'mniam!', 'nie patrz!'];
+    var n = 0, timer = null;
+
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function applyMotion() {
+      try { mq.matches ? svg.pauseAnimations() : svg.unpauseAnimations(); } catch (e) {}
+    }
+    applyMotion();
+    if (mq.addEventListener) mq.addEventListener('change', applyMotion);
+
+    function heart(dx, delay) {
+      var g = document.createElementNS(NS, 'g');
+      g.setAttribute('transform', 'translate(' + (348 + dx) + ' 348)');
+      var u = document.createElementNS(NS, 'use');
+      u.setAttribute('href', '#heart');
+      u.style.opacity = '0';
+      g.appendChild(u);
+      hearts.appendChild(g);
+      if (!u.animate) { g.remove(); return; }
+      var a = u.animate([
+        { transform: 'translateY(0px) scale(0.5)', opacity: 0 },
+        { transform: 'translateY(-16px) scale(1)', opacity: 1, offset: 0.2 },
+        { transform: 'translateY(-70px) scale(1)', opacity: 0 }
+      ], { duration: 1300, delay: delay, easing: 'ease-out', fill: 'both' });
+      a.onfinish = function () { g.remove(); };
+    }
+
+    function poke() {
+      bubbleText.textContent = words[n++ % words.length];
+      cat.classList.remove('hop');
+      void cat.getBoundingClientRect();
+      cat.classList.add('hop');
+      bubble.classList.add('on');
+      clearTimeout(timer);
+      timer = setTimeout(function () { bubble.classList.remove('on'); }, 1500);
+      if (!mq.matches) { heart(-26, 0); heart(0, 120); heart(26, 240); }
+    }
+    cat.addEventListener('click', poke);
+    cat.addEventListener('animationend', function () { cat.classList.remove('hop'); });
+    cat.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); }
+    });
+  })();
+</script>
+</body>
+</html>
