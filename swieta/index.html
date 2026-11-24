@@ -444,15 +444,15 @@ window.sendOrder=async function(){
     `<div class="code">${code}</div>`+
     `<strong>Zamówienie:</strong> ${esc(cakeList)}<br>`+
     `<strong>Wartość:</strong> ${t.total} zł<br>`+
-    `<strong>Zaliczka:</strong> ${t.deposit} zł<br>`+
+    `<strong>Zadatek:</strong> ${t.deposit} zł<br>`+
     `<strong>Do zapłaty przy odbiorze:</strong> ${t.rest} zł<br>`+
-    `<strong>Odbiór:</strong> 23 grudnia, w godz. 11:00–19:00<br>`+
+    `<strong>Odbiór:</strong> 23 grudnia, w godz. 11:00-19:00<br>`+
     `<strong>Klient:</strong> ${esc(name)}, tel. ${esc(phone)}`;
   const bank = BANK_ACCOUNT
-    ? `Wpłać zaliczkę <b>${t.deposit} zł</b> na konto <b>${esc(BANK_ACCOUNT)}</b> (${esc(BANK_HOLDER)}), w tytule wpisz <b>${code}</b>.`
-    : `Dane do przelewu zaliczki <b>${t.deposit} zł</b> otrzymasz od nas. W tytule przelewu wpisz numer <b>${code}</b>.`;
+    ? `Wpłać zadatek <b>${t.deposit} zł</b> na konto <b>${esc(BANK_ACCOUNT)}</b> (${esc(BANK_HOLDER)}), w tytule wpisz <b>${code}</b>.`
+    : `Dane do przelewu <b>${t.deposit} zł</b> otrzymasz od nas. W tytule przelewu wpisz numer <b>${code}</b>.`;
   const smsInfo = smsSent ? ' Wysłaliśmy też SMS z tymi informacjami.' : '';
-  $('okPay').innerHTML = bank+smsInfo+' <b>Zaliczka musi zostać zaksięgowana najpóźniej 21 grudnia</b> — po tym terminie zamówienie przepada. Zamówienie jest przyjęte po zaksięgowaniu zaliczki. Reszta ('+t.rest+' zł) płatna przy odbiorze.';
+  $('okPay').innerHTML = bank+smsInfo+' <b>Zaliczka musi zostać zaksięgowana najpóźniej 21 grudnia</b> - po tym terminie zamówienie przepada. Zamówienie jest przyjęte po zaksięgowaniu zadatku. Reszta ('+t.rest+' zł) płatna przy odbiorze.';
   $('okOverlay').classList.add('show');
   sending=false; btn.disabled=false; btn.textContent='Złóż zamówienie';
 };
