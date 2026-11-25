@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Karty">
+<meta name="theme-color" content="#2C3E6A">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Filemon - Karty podarunkowe</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+:root{--navy:#2C3E6A;--navy2:#1E2E52;--green:#1DB96A;--red:#E84040;--yellow:#F5A623;--bg:#F0EDF8;--text:#1B2A4A;--muted:#7A8AAA;--border:rgba(27,42,74,.12);--accent:#E8A73A}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:3rem}
+button{font-family:inherit}
+header{background:var(--navy);padding:.9rem 1rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.2)}
+.logo-text{color:#fff;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.logo-text span{opacity:.5;font-weight:400;font-size:.72rem;margin-left:.3rem}
+#user-badge{font-size:.72rem;font-weight:700;color:#fff;background:rgba(255,255,255,.15);padding:.25rem .6rem;border-radius:20px;cursor:pointer;white-space:nowrap}
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:var(--hdr-h,54px);z-index:90}
+.tab{flex:1;padding:.7rem .5rem;text-align:center;font-size:.75rem;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:2.5px solid transparent;text-transform:uppercase;letter-spacing:.06em;user-select:none}
+.tab.active{color:var(--navy);border-color:var(--navy)}
+.tab-content{display:none;max-width:760px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* SKAN */
+.scan-hero{margin:1rem .75rem;background:linear-gradient(150deg,#566AA0,#1E2E52);border-radius:22px;padding:1.6rem 1.2rem;color:#fff;text-align:center;box-shadow:0 6px 24px rgba(30,46,82,.3)}
+.scan-ico{font-size:3rem;margin-bottom:.6rem;opacity:.95}
+.scan-hero h2{font-size:1.25rem;font-weight:800;margin-bottom:.3rem}
+.scan-hero p{font-size:.85rem;opacity:.7;margin-bottom:1rem}
+.scan-row{display:flex;gap:.5rem}
+#scan-input{flex:1;min-width:0;padding:.85rem 1rem;border:none;border-radius:12px;font-size:1.1rem;font-family:ui-monospace,Menlo,monospace;letter-spacing:.05em;text-align:center;outline:none;color:var(--text)}
+.scan-btn{border:none;border-radius:12px;background:var(--green);color:#fff;font-weight:800;padding:0 1.1rem;font-size:1rem;cursor:pointer}
+.scan-btn:active{opacity:.8}
+.stat-row{display:flex;gap:.5rem;padding:0 .75rem;flex-wrap:wrap}
+.stat{flex:1;min-width:7rem;background:#fff;border-radius:14px;padding:.7rem .8rem;box-shadow:0 1px 6px rgba(27,42,74,.07)}
+.stat b{display:block;font-size:1.2rem;color:var(--navy)}
+.stat span{font-size:.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+/* LISTA */
+.search-wrap{padding:.8rem .75rem .3rem}
+.search-input{width:100%;padding:.65rem .9rem;border:1.5px solid var(--border);border-radius:10px;font-size:.92rem;font-family:inherit;background:#fff;outline:none}
+.search-input:focus{border-color:var(--navy)}
+.chips{display:flex;gap:.35rem;flex-wrap:wrap;padding:.4rem .75rem}
+.chip{border:1.5px solid var(--border);background:#fff;border-radius:999px;padding:.32rem .7rem;font-size:.76rem;font-weight:700;color:var(--muted);cursor:pointer}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.card-row{background:#fff;border-radius:12px;padding:.75rem .95rem;margin:.5rem .75rem 0;box-shadow:0 1px 6px rgba(27,42,74,.07);cursor:pointer;display:flex;justify-content:space-between;gap:.6rem;align-items:center;border-left:5px solid var(--green)}
+.card-row:active{opacity:.7}
+.card-row.soon{border-left-color:var(--yellow)}
+.card-row.expired{border-left-color:var(--red);opacity:.75}
+.card-row.empty{border-left-color:#b8c0d0;opacity:.7}
+.cr-name{font-weight:800;font-size:.93rem}
+.cr-sub{font-size:.74rem;color:var(--muted);margin-top:.12rem;line-height:1.35}
+.cr-side{text-align:right;white-space:nowrap}
+.cr-side b{font-size:.98rem;color:var(--navy)}
+.cr-side small{display:block;font-size:.68rem;color:var(--muted);margin-top:.1rem}
+.empty-msg{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.9rem}
+
+/* RAPORT */
+.rep-head{display:flex;gap:.5rem;align-items:center;padding:.8rem .75rem .4rem}
+.rep-head input{flex:1;padding:.6rem .8rem;border:1.5px solid var(--border);border-radius:10px;font-size:.95rem;font-family:inherit;background:#fff}
+.rep-box{background:#fff;border-radius:14px;margin:.6rem .75rem 0;padding:.8rem .9rem;box-shadow:0 1px 6px rgba(27,42,74,.07)}
+.rep-box h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.5rem}
+.rep-line{display:flex;justify-content:space-between;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.rep-line:last-child{border-bottom:none}
+.rep-line b{color:var(--navy)}
+
+/* ARKUSZ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:1.2rem 1.2rem 2.2rem;max-height:93vh;overflow-y:auto}
+@media(min-width:700px){.overlay{align-items:center}.sheet{border-radius:20px}}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 1rem}
+.sheet-title{font-size:1.05rem;font-weight:800;margin-bottom:.9rem}
+.mono{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--navy)}
+.detail-name{font-size:1.15rem;font-weight:800;margin-top:.9rem}
+.detail-time{font-size:.85rem;color:var(--muted);margin-bottom:.6rem}
+.section-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:.9rem 0 .35rem}
+.gc-visual{background:linear-gradient(135deg,#2C3E6A,#566AA0);color:#fff;border-radius:18px;padding:1rem 1.1rem;box-shadow:0 6px 18px rgba(44,62,106,.35)}
+.gc-visual.expired{background:linear-gradient(135deg,#6b6f7c,#9a9eaa)}
+.gc-top{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;opacity:.9}
+.gc-num{font-family:ui-monospace,Menlo,monospace;letter-spacing:.06em}
+.gc-bal-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;opacity:.65;margin-top:.9rem}
+.gc-bal{font-size:2rem;font-weight:800;letter-spacing:-.02em}
+.gc-exp{margin-top:.5rem}
+.st{display:inline-block;font-size:.72rem;font-weight:800;padding:.2rem .6rem;border-radius:999px;background:rgba(255,255,255,.2)}
+.st.soon{background:var(--yellow);color:#1a1a2e}
+.st.expired{background:var(--red)}
+.item-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.6rem .75rem;border:1.5px solid var(--border);border-radius:12px;margin-bottom:.45rem}
+.item-name{font-weight:700;font-size:.92rem}
+.item-sub{font-size:.74rem;color:var(--muted);margin-top:.1rem}
+.kind{display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;padding:.08rem .38rem;border-radius:5px;margin-left:.35rem;vertical-align:middle;background:#E8ECF4;color:var(--navy)}
+.kind.abon{background:#efe3f7;color:#5a2d78}
+.btn-primary{width:100%;padding:.8rem;background:var(--navy);color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:800;cursor:pointer;margin-top:.5rem}
+.btn-primary:active{opacity:.8}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-ghost{background:none;border:1.5px solid var(--border);color:var(--text)}
+.btn-success{background:var(--green)}
+.btn-danger{background:var(--red)}
+.btn-sm{width:auto;margin:0;padding:.5rem .85rem;font-size:.82rem;border-radius:10px;flex:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem}
+.grid2 .btn-primary{margin-top:0;font-size:.85rem;padding:.75rem .4rem}
+.f-group{margin-bottom:.8rem}
+.f-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;display:block}
+.f-label .opt{font-weight:400;text-transform:none;letter-spacing:0;opacity:.7}
+.f-input{width:100%;padding:.65rem .8rem;border:1.5px solid var(--border);border-radius:10px;font-size:.95rem;font-family:inherit;color:var(--text);background:#fff;outline:none}
+.f-input:focus{border-color:var(--navy)}
+.f-input.big{font-size:1.5rem;font-weight:800;text-align:center;padding:.8rem}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:3px;margin-bottom:.9rem}
+.seg button{flex:1;border:none;background:none;padding:.55rem .3rem;border-radius:10px;font-size:.82rem;font-weight:800;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--navy);color:#fff}
+.qchips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem}
+.qchip{border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:.45rem .75rem;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer}
+.qchip.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.info{background:#EAF2FF;border:1.5px solid var(--navy);border-radius:10px;padding:.55rem .75rem;font-size:.82rem;line-height:1.4;margin:.4rem 0 .6rem}
+.info.warn{background:#FFF3D9;border-color:var(--accent)}
+.hist-row{display:flex;justify-content:space-between;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.84rem}
+.hist-row:last-child{border-bottom:none}
+.hist-row small{display:block;color:var(--muted);font-size:.7rem;margin-top:.1rem}
+.hist-row .plus{color:var(--green);font-weight:800;white-space:nowrap}
+.hist-row .minus{color:var(--red);font-weight:800;white-space:nowrap}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--navy);color:#fff;padding:.6rem 1.2rem;border-radius:30px;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:12000;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* PIN */
+.pin-screen{position:fixed;inset:0;background:var(--navy);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1.5rem;padding-top:10vh;padding-bottom:2rem;overflow-y:auto}
+.pin-title{color:#fff;font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.pin-sub{color:rgba(255,255,255,.5);font-size:.82rem;margin-top:-1rem}
+.pin-dots{display:flex;gap:.75rem}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.4);transition:background .15s,border-color .15s}
+.pin-dot.filled{background:#fff;border-color:#fff}
+.pin-dot.error{background:var(--red);border-color:var(--red)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;width:260px}
+.pin-btn{background:rgba(255,255,255,.1);border:none;border-radius:14px;height:68px;font-size:1.4rem;font-weight:700;color:#fff;cursor:pointer;transition:background .1s}
+.pin-btn:active{background:rgba(255,255,255,.25)}
+.pin-btn.del{font-size:1.1rem}
+.pin-btn.empty{background:none;pointer-events:none}
+.pin-error{color:var(--red);font-size:.82rem;font-weight:600;height:1.2rem;text-align:center;padding:0 1rem}
+.pin-link{background:none;border:none;color:rgba(255,255,255,.6);font-size:.8rem;text-decoration:underline;cursor:pointer;padding:.5rem 1rem;margin-top:.5rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-text">Filemon <span>karty podarunkowe</span></div>
+  <div id="user-badge" onclick="filemonLock()" title="Kliknij, aby zablokować aplikację (kod PIN)"></div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('scan')"><i class="fa-solid fa-id-card"></i> Karta</div>
+  <div class="tab" onclick="switchTab('list')"><i class="fa-solid fa-list"></i> Lista<span id="list-count"></span></div>
+  <div class="tab" onclick="switchTab('report')"><i class="fa-solid fa-chart-column"></i> Raport</div>
+</div>
+
+<!-- KARTA / SKAN -->
+<div id="tab-scan" class="tab-content active">
+  <div class="scan-hero">
+    <div class="scan-ico"><i class="fa-solid fa-wifi" style="transform:rotate(90deg)"></i></div>
+    <h2>Przyłóż kartę do czytnika</h2>
+    <p>Numer wpisze się sam. Możesz też wpisać go ręcznie.</p>
+    <div class="scan-row">
+      <input id="scan-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="numer karty">
+      <button class="scan-btn" onclick="doScan()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </div>
+  <div class="stat-row" id="home-stats"></div>
+</div>
+
+<!-- LISTA -->
+<div id="tab-list" class="tab-content">
+  <div class="search-wrap"><input class="search-input" id="list-search" type="text" placeholder="Szukaj: imię, telefon lub numer karty…" oninput="renderList()" autocomplete="off"></div>
+  <div class="chips" id="list-filters"></div>
+  <div id="list-body"></div>
+</div>
+
+<!-- RAPORT -->
+<div id="tab-report" class="tab-content">
+  <div class="rep-head">
+    <input type="month" id="rep-month" onchange="loadReport()">
+    <button class="btn-primary btn-sm" onclick="loadReport()"><i class="fa-solid fa-rotate"></i></button>
+  </div>
+  <div id="rep-body"></div>
+</div>
+
+<!-- ARKUSZ (karta / doładowanie / historia…) -->
+<div class="overlay" id="ov"><div class="sheet"><div class="sheet-handle"></div><div id="ov-content"></div></div></div>
+
+<!-- POTWIERDZENIE -->
+<div class="overlay" id="confirm-overlay" style="z-index:10001">
+  <div class="sheet" style="max-width:380px;text-align:center;border-radius:20px">
+    <div class="sheet-title" style="margin-bottom:.3rem">Potwierdź</div>
+    <div id="confirm-msg" style="font-size:.95rem;line-height:1.4;margin:.6rem 0 1.2rem"></div>
+    <div style="display:flex;gap:.6rem">
+      <button class="btn-primary btn-ghost" id="confirm-cancel-btn" style="flex:1;margin-top:0">Anuluj</button>
+      <button class="btn-primary" id="confirm-ok-btn" style="flex:1;margin-top:0">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, collection, doc, onSnapshot, query, where, getDocs, getDoc, updateDoc, deleteDoc, runTransaction }
+  from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence }
+  from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBOGm3N-8zPtjvVv7hx1F-jqFpBU-dD7RY",
+  authDomain: "rezerwacja-af82e.firebaseapp.com",
+  projectId: "rezerwacja-af82e",
+  storageBucket: "rezerwacja-af82e.firebasestorage.app",
+  messagingSenderId: "316318620114",
+  appId: "1:316318620114:web:453d19957ab0af4f8b100b"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence).catch(()=>{});
+
+const COL_CARDS = 'giftcards';
+const COL_LOG = 'giftcard_log';
+const MIN_TOPUP = 20;       // minimalne doładowanie kwotą (zł)
+const VALID_MONTHS = 6;     // ważność od dnia doładowania
+
+let currentUserName = '';
+let cards = {};
+let appStarted = false;
+let curCard = null;
+
+// ─── POMOCNICZE ───
+const pad2 = n => n<10 ? '0'+n : ''+n;
+const todayStr = () => { const d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); };
+function addMonths(str, n){
+  const [y,m,d] = str.split('-').map(Number);
+  const t = new Date(y, m-1+n, 1);
+  const last = new Date(t.getFullYear(), t.getMonth()+1, 0).getDate();
+  return t.getFullYear()+'-'+pad2(t.getMonth()+1)+'-'+pad2(Math.min(d,last));
+}
+const fmtD = s => s ? s.split('-').reverse().join('.') : '—';
+const round2 = n => Math.round(n*100)/100;
+const money = n => round2(n||0).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})+' zł';
+const esc = t => String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normNumber = s => String(s||'').trim().toUpperCase().replace(/\s+/g,'').replace(/[^A-Z0-9_-]/g,'');
+const daysLeft = exp => Math.round((new Date(exp+'T00:00:00') - new Date(todayStr()+'T00:00:00'))/864e5);
+const parseNum = v => parseFloat(String(v||'').replace(',','.'));
+function capName(t){return String(t).replace(/(^|[\s\-])(\p{L})/gu,(m,a,b)=>a+b.toLocaleUpperCase('pl'));}
+function phoneDigits(val){
+  let d=(val||'').replace(/\D/g,'');
+  if(d.startsWith('0048'))d=d.slice(4);
+  else if(d.startsWith('48')&&d.length>9)d=d.slice(2);
+  return d.slice(0,9);
+}
+function formatPhone(val){
+  const d=phoneDigits(val), p=[];
+  if(d.length>0)p.push(d.slice(0,3));
+  if(d.length>3)p.push(d.slice(3,6));
+  if(d.length>6)p.push(d.slice(6,9));
+  return p.join('-');
+}
+const $ = id => document.getElementById(id);
+const val = id => ($(id)||{}).value || '';
+window.toast = function(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); };
+
+function cardStatus(c){
+  if(!c.expiresAt) return {key:'none',label:'brak ważności'};
+  const dl = daysLeft(c.expiresAt);
+  if(dl<0) return {key:'expired',label:'Wygasła '+fmtD(c.expiresAt)};
+  if(dl===0) return {key:'soon',label:'Ważna do '+fmtD(c.expiresAt)+' (ostatni dzień)'};
+  if(dl<=30) return {key:'soon',label:'Ważna do '+fmtD(c.expiresAt)+' (za '+dl+' dni)'};
+  return {key:'ok',label:'Ważna do '+fmtD(c.expiresAt)};
+}
+const activeItems = c => (c.items||[]).filter(i=>i.remaining>0);
+const isEmptyCard = c => (c.balance||0)<=0.004 && !activeItems(c).length;
+
+// ─── STYLIZOWANE POTWIERDZENIE ───
+function customConfirm(message){
+  return new Promise(resolve=>{
+    const overlay=$('confirm-overlay');
+    $('confirm-msg').textContent=message;
+    overlay.classList.add('show');
+    const ok=$('confirm-ok-btn'), cancel=$('confirm-cancel-btn');
+    function cleanup(r){ overlay.classList.remove('show'); ok.removeEventListener('click',onOk); cancel.removeEventListener('click',onCancel); overlay.removeEventListener('click',onBg); resolve(r); }
+    function onOk(){cleanup(true)} function onCancel(){cleanup(false)} function onBg(e){if(e.target===overlay)cleanup(false)}
+    ok.addEventListener('click',onOk); cancel.addEventListener('click',onCancel); overlay.addEventListener('click',onBg);
+  });
+}
+
+// ─── ZAKŁADKI ───
+let activeTab = 'scan';
+window.switchTab = function(name){
+  activeTab = name;
+  const order=['scan','list','report'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',order[i]===name));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  $('tab-'+name).classList.add('active');
+  if(name==='list') renderList();
+  if(name==='report'){ if(!$('rep-month').value){ const d=new Date(); $('rep-month').value=d.getFullYear()+'-'+pad2(d.getMonth()+1); } loadReport(); }
+  if(name==='scan') focusScan();
+};
+function focusScan(){ if(unlocked && activeTab==='scan' && !$('ov').classList.contains('show')) setTimeout(()=>$('scan-input').focus(),50); }
+window.closeSheet = function(){ $('ov').classList.remove('show'); focusScan(); };
+function openSheet(html){ $('ov-content').innerHTML=html; $('ov').classList.add('show'); const s=$('scan-input'); if(document.activeElement===s) s.blur(); $('ov').querySelector('.sheet').scrollTop=0; }
+$('ov').addEventListener('click',e=>{ if(e.target===$('ov')) closeSheet(); });
+
+// ─── DANE (po zalogowaniu) ───
+function startApp(){
+  if(appStarted) return;
+  appStarted = true;
+  onSnapshot(collection(db,COL_CARDS), snap=>{
+    cards = {};
+    snap.forEach(d=>cards[d.id]=d.data());
+    $('list-count').textContent = ' ('+snap.size+')';
+    renderHome();
+    if(activeTab==='list') renderList();
+  }, err=>{ console.error(err); toast('Brak dostępu do bazy kart — sprawdź reguły Firestore'); });
+  renderHome();
+  focusScan();
+}
+
+function renderHome(){
+  const all = Object.values(cards);
+  const live = all.filter(c=>{const s=cardStatus(c).key;return s!=='expired'&&!isEmptyCard(c);});
+  const sumBal = live.reduce((s,c)=>s+(c.balance||0),0);
+  const soon = all.filter(c=>cardStatus(c).key==='soon'&&!isEmptyCard(c)).length;
+  $('home-stats').innerHTML = `
+    <div class="stat"><b>${live.length}</b><span>aktywnych kart</span></div>
+    <div class="stat"><b>${money(sumBal)}</b><span>saldo na kartach</span></div>
+    <div class="stat"><b>${soon}</b><span>wygasa w 30 dni</span></div>`;
+}
+
+// ─── SKANOWANIE ───
+let scanBusy = false;
+window.doScan = function(){
+  const inp=$('scan-input');
+  const v=normNumber(inp.value);
+  inp.value='';
+  if(!v) return;
+  openCard(v);
+};
+$('scan-input').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); doScan(); } });
+
+// czytnik działa też, gdy nic nie jest zaznaczone (np. przy otwartym oknie karty)
+let kbBuf='', kbTimer=null;
+document.addEventListener('keydown',e=>{
+  if(!unlocked) return;
+  const a=document.activeElement;
+  if(a && (a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT')) return;
+  if($('confirm-overlay').classList.contains('show')) return;
+  if(e.key==='Enter'){
+    if(kbBuf.length>=4){ e.preventDefault(); const v=normNumber(kbBuf); kbBuf=''; openCard(v); }
+    kbBuf=''; return;
+  }
+  if(e.key.length===1 && !e.ctrlKey && !e.metaKey && !e.altKey){
+    kbBuf+=e.key; clearTimeout(kbTimer); kbTimer=setTimeout(()=>kbBuf='',300);
+  }
+});
+
+async function openCard(num){
+  if(scanBusy) return;
+  scanBusy = true;
+  try{
+    const snap = await getDoc(doc(db,COL_CARDS,num));
+    if(snap.exists()) renderCardSheet(snap.data());
+    else openTopup(num,true,null);
+  }catch(e){ console.error(e); toast('Błąd odczytu — sprawdź połączenie lub reguły bazy'); }
+  scanBusy = false;
+}
+window.openCardById = function(id){ const c=cards[id]; if(c) renderCardSheet(c); };
+
+// ─── WIDOK KARTY ───
+function renderCardSheet(c){
+  curCard = c;
+  const st = cardStatus(c);
+  const expired = st.key==='expired';
+  const items = c.items||[];
+  const rows = items.map((it,i)=>it.remaining>0 ? `
+    <div class="item-row">
+      <div><div class="item-name">${esc(it.name)}<span class="kind ${it.kind}">${it.kind==='abon'?'abonament':'produkt'}</span></div>
+      <div class="item-sub">zostało ${it.remaining}${it.kind==='abon'&&it.total?' z '+it.total:''}</div></div>
+      <button class="btn-primary btn-success btn-sm" ${expired?'disabled':''} onclick="useItem(${i})">Zrealizuj 1</button>
+    </div>` : '').join('');
+  openSheet(`
+    <div class="gc-visual ${expired?'expired':''}">
+      <div class="gc-top"><span><i class="fa-solid fa-gift"></i> Filemon</span><span class="gc-num">${esc(c.number)}</span></div>
+      <div class="gc-bal-label">Saldo</div>
+      <div class="gc-bal">${money(c.balance)}</div>
+      <div class="gc-exp"><span class="st ${st.key}">${esc(st.label)}</span></div>
+    </div>
+    <div class="detail-name">${esc(c.ownerName||'Karta bez właściciela')}</div>
+    <div class="detail-time">${esc(c.ownerPhone||'brak telefonu')}</div>
+    ${rows?`<div class="section-label">Abonamenty i produkty</div>${rows}`:''}
+    ${expired?'<div class="info warn"><i class="fa-solid fa-triangle-exclamation"></i> Karta wygasła — doładowanie ją reaktywuje (na kolejne 6 miesięcy).</div>':''}
+    <div class="grid2">
+      <button class="btn-primary btn-success" onclick="openTopup('${esc(c.number)}',false,curCard)"><i class="fa-solid fa-plus"></i> Doładuj</button>
+      <button class="btn-primary" ${(expired||(c.balance||0)<=0)?'disabled':''} onclick="openUseAmount()"><i class="fa-solid fa-coins"></i> Zapłać z salda</button>
+      <button class="btn-primary btn-ghost" onclick="openHistory('${esc(c.number)}')"><i class="fa-solid fa-clock-rotate-left"></i> Historia</button>
+      <button class="btn-primary btn-ghost" onclick="openEditCard()"><i class="fa-solid fa-pen"></i> Dane</button>
+    </div>
+    <button class="btn-primary btn-ghost" onclick="closeSheet()" style="margin-top:.7rem">Zamknij</button>`);
+}
+window.renderCardSheet = renderCardSheet;
+
+// ─── ZAPIS KARTY W TRANSAKCJI (bezpieczne przy kilku urządzeniach) ───
+async function mutateCard(num, fn){
+  return await runTransaction(db, async tx=>{
+    const ref = doc(db,COL_CARDS,num);
+    const snap = await tx.get(ref);
+    const card = snap.exists() ? snap.data() : null;
+    const {card:next, log} = fn(card);
+    tx.set(ref,next);
+    tx.set(doc(collection(db,COL_LOG)), {...log, cardId:num, cardNumber:next.number, ownerName:next.ownerName||'', by:currentUserName||'', at:new Date().toISOString()});
+    return next;
+  });
+}
+
+// ─── DOŁADOWANIE ───
+let tuType='amount', tuNum='', tuIsNew=false, tuProd='Kawa', tuFrom=null;
+window.openTopup = function(num,isNew,fromCard){
+  tuNum=num; tuIsNew=isNew; tuFrom=fromCard; tuType='amount'; tuProd='Kawa';
+  const exp = addMonths(todayStr(),VALID_MONTHS);
+  openSheet(`
+    <div class="sheet-title">${isNew?'Nowa karta':'Doładowanie'} <span class="mono">${esc(num)}</span></div>
+    ${isNew?`
+    <div class="info">Tej karty nie ma jeszcze w systemie — zostanie utworzona przy pierwszym doładowaniu.</div>
+    <div class="f-group"><label class="f-label">Imię i nazwisko <span class="opt">(opcjonalne)</span></label>
+      <input class="f-input" id="tu-owner" type="text" autocapitalize="words" autocomplete="off" oninput="this.value=capName(this.value)"></div>
+    <div class="f-group"><label class="f-label">Telefon <span class="opt">(opcjonalne)</span></label>
+      <input class="f-input" id="tu-phone" type="tel" autocomplete="off" onblur="this.value=formatPhone(this.value)"></div>`:''}
+    <div class="seg" id="tu-seg">
+      <button class="on" data-t="amount" onclick="setTuType('amount')">Kwota</button>
+      <button data-t="abon" onclick="setTuType('abon')">Abonament</button>
+      <button data-t="prod" onclick="setTuType('prod')">Produkt</button>
+    </div>
+
+    <div id="tu-amount">
+      <div class="qchips" id="amt-chips">${[20,30,50,100,150,200].map(v=>`<button class="qchip" onclick="pickAmt(${v},this)">${v} zł</button>`).join('')}</div>
+      <div class="f-group"><label class="f-label">Kwota doładowania (min. ${MIN_TOPUP} zł)</label>
+        <input class="f-input big" id="tu-amt" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></div>
+    </div>
+
+    <div id="tu-abon" style="display:none">
+      <div class="qchips" id="abon-chips">${['Kawa','Kawałek ciasta'].map(n=>`<button class="qchip" onclick="pickAbonName('${n}',this)">${n}</button>`).join('')}</div>
+      <div class="f-group"><label class="f-label">Usługa w abonamencie</label>
+        <input class="f-input" id="tu-abon-name" type="text" placeholder="np. kawa" autocomplete="off"></div>
+      <div class="qchips" id="abon-qty-chips">${[5,10,20].map(v=>`<button class="qchip" onclick="pickQty('tu-abon-qty',${v},this)">${v}</button>`).join('')}</div>
+      <div class="f-group"><label class="f-label">Liczba sztuk w abonamencie</label>
+        <input class="f-input" id="tu-abon-qty" type="number" inputmode="numeric" min="1" step="1" value="10"></div>
+    </div>
+
+    <div id="tu-prod" style="display:none">
+      <div class="qchips" id="prod-chips">${['Kawa','Ciasto','Kawa i ciasto','Inne'].map((n,i)=>`<button class="qchip${i===0?' on':''}" onclick="pickProd('${n}',this)">${n}</button>`).join('')}</div>
+      <div class="f-group" id="tu-prod-name-wrap" style="display:none"><label class="f-label">Nazwa produktu</label>
+        <input class="f-input" id="tu-prod-name" type="text" placeholder="np. bon na 2 herbaty" autocomplete="off"></div>
+      <div class="qchips" id="prod-qty-chips">${[1,2,3,5].map(v=>`<button class="qchip${v===1?' on':''}" onclick="pickQty('tu-prod-qty',${v},this)">${v}</button>`).join('')}</div>
+      <div class="f-group"><label class="f-label">Liczba sztuk</label>
+        <input class="f-input" id="tu-prod-qty" type="number" inputmode="numeric" min="1" step="1" value="1"></div>
+    </div>
+
+    <div id="tu-paid-wrap" style="display:none" class="f-group">
+      <label class="f-label">Wpłata za ten pakiet (zł) <span class="opt">(do raportu, opcjonalne)</span></label>
+      <input class="f-input" id="tu-paid" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00">
+    </div>
+
+    <div class="info"><i class="fa-solid fa-calendar-check"></i> Po doładowaniu karta będzie ważna do <b>${fmtD(exp)}</b> (6 miesięcy od dziś; nie sumuje się z poprzednim terminem).</div>
+    <button class="btn-primary btn-success" id="tu-submit" onclick="submitTopup()"><i class="fa-solid fa-check"></i> Doładuj kartę</button>
+    <button class="btn-primary btn-ghost" onclick="${fromCard?'renderCardSheet(tuFrom)':'closeSheet()'}">${fromCard?'← Wróć':'Anuluj'}</button>`);
+};
+window.setTuType = function(t){
+  tuType=t;
+  document.querySelectorAll('#tu-seg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  $('tu-amount').style.display = t==='amount'?'':'none';
+  $('tu-abon').style.display = t==='abon'?'':'none';
+  $('tu-prod').style.display = t==='prod'?'':'none';
+  $('tu-paid-wrap').style.display = t==='amount'?'none':'';
+};
+function pickChip(btn){ btn.parentElement.querySelectorAll('.qchip').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); }
+window.pickAmt = (v,btn)=>{ $('tu-amt').value=v; pickChip(btn); };
+window.pickAbonName = (n,btn)=>{ $('tu-abon-name').value=n; pickChip(btn); };
+window.pickQty = (id,v,btn)=>{ $(id).value=v; pickChip(btn); };
+window.pickProd = (n,btn)=>{ tuProd=n; pickChip(btn); $('tu-prod-name-wrap').style.display = n==='Inne'?'':'none'; if(n==='Inne') setTimeout(()=>$('tu-prod-name').focus(),50); };
+
+window.submitTopup = async function(){
+  const num = tuNum;
+  let amount=0, itemName='', qty=0, paid=0, kind=tuType;
+  if(kind==='amount'){
+    amount = round2(parseNum(val('tu-amt')));
+    if(!(amount>=MIN_TOPUP)){ toast('Minimalne doładowanie to '+MIN_TOPUP+' zł'); return; }
+    paid = amount;
+  } else {
+    itemName = kind==='abon' ? val('tu-abon-name').trim() : (tuProd==='Inne' ? val('tu-prod-name').trim() : tuProd);
+    qty = parseInt(val(kind==='abon'?'tu-abon-qty':'tu-prod-qty'),10);
+    if(!itemName){ toast('Podaj nazwę'); return; }
+    if(!(qty>=1)){ toast('Podaj liczbę sztuk (min. 1)'); return; }
+    paid = round2(parseNum(val('tu-paid'))||0);
+    if(paid<0){ toast('Wpłata nie może być ujemna'); return; }
+  }
+  const owner = tuIsNew ? capName(val('tu-owner').trim()) : '';
+  const phone = tuIsNew ? formatPhone(val('tu-phone')) : '';
+  const btn=$('tu-submit'); btn.disabled=true;
+  try{
+    const now = new Date().toISOString();
+    const next = await mutateCard(num, card=>{
+      const base = card || {id:num, number:num, ownerName:owner, ownerPhone:phone, balance:0, items:[], createdAt:now};
+      const n = {...base, items:(base.items||[]).map(x=>({...x}))};
+      if(kind==='amount') n.balance = round2((n.balance||0)+amount);
+      else {
+        const key = kind+':'+itemName.toLowerCase();
+        const ex = n.items.find(x=>x.key===key);
+        if(ex){ ex.remaining+=qty; ex.total=(ex.total||0)+qty; }
+        else n.items.push({key, kind, name:itemName, remaining:qty, total:qty});
+      }
+      n.expiresAt = addMonths(todayStr(),VALID_MONTHS);
+      n.lastTopupAt = now;
+      return {card:n, log:{type:'topup', kind, amount:paid, itemName, qty, balanceAfter:n.balance||0, expiresAfter:n.expiresAt}};
+    });
+    toast('Doładowano ✓ Ważna do '+fmtD(next.expiresAt));
+    renderCardSheet(next);
+  }catch(e){ console.error(e); btn.disabled=false; toast('Błąd zapisu: '+(e.message||'sprawdź połączenie')); }
+};
+
+// ─── PŁATNOŚĆ Z SALDA ───
+window.openUseAmount = function(){
+  const c=curCard; if(!c) return;
+  openSheet(`
+    <div class="sheet-title">Zapłać z salda <span class="mono">${esc(c.number)}</span></div>
+    <div class="info">Dostępne saldo: <b>${money(c.balance)}</b></div>
+    <div class="f-group"><label class="f-label">Kwota do pobrania (zł)</label>
+      <input class="f-input big" id="ua-amt" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></div>
+    <div class="qchips"><button class="qchip" onclick="$('ua-amt').value='${round2(c.balance)}'">Całe saldo</button></div>
+    <button class="btn-primary btn-success" id="ua-submit" onclick="submitUseAmount()">Pobierz z salda</button>
+    <button class="btn-primary btn-ghost" onclick="renderCardSheet(curCard)">← Wróć</button>`);
+  setTimeout(()=>$('ua-amt').focus(),80);
+};
+window.$ = $;
+window.submitUseAmount = async function(){
+  const c=curCard; if(!c) return;
+  const amt = round2(parseNum(val('ua-amt')));
+  if(!(amt>0)){ toast('Podaj kwotę'); return; }
+  if(amt>(c.balance||0)+0.004){ toast('Za mało środków (saldo '+money(c.balance)+')'); return; }
+  if(!await customConfirm('Pobrać '+money(amt)+' z karty '+c.number+'? Zostanie '+money((c.balance||0)-amt)+'.')) return;
+  const btn=$('ua-submit'); btn.disabled=true;
+  try{
+    const next = await mutateCard(c.number, card=>{
+      if(!card) throw new Error('Nie znaleziono karty');
+      if(todayStr()>card.expiresAt) throw new Error('Karta wygasła');
+      if(amt>(card.balance||0)+0.004) throw new Error('Za mało środków (saldo '+money(card.balance)+')');
+      const n={...card, balance:round2((card.balance||0)-amt)};
+      return {card:n, log:{type:'use', kind:'amount', amount:amt, balanceAfter:n.balance}};
+    });
+    toast('Pobrano '+money(amt)+' ✓ Saldo: '+money(next.balance));
+    renderCardSheet(next);
+  }catch(e){ console.error(e); btn.disabled=false; toast(e.message||'Błąd zapisu'); }
+};
+
+// ─── REALIZACJA POZYCJI (abonament / produkt) ───
+window.useItem = async function(i){
+  const c=curCard; if(!c) return;
+  const it=(c.items||[])[i]; if(!it) return;
+  if(!await customConfirm('Zrealizować 1 szt.: '+it.name+' (zostanie '+(it.remaining-1)+')?')) return;
+  try{
+    const next = await mutateCard(c.number, card=>{
+      if(!card) throw new Error('Nie znaleziono karty');
+      if(todayStr()>card.expiresAt) throw new Error('Karta wygasła');
+      const items=(card.items||[]).map(x=>({...x}));
+      const ex=items.find(x=>x.key===it.key);
+      if(!ex||ex.remaining<1) throw new Error('Brak tej pozycji na karcie');
+      ex.remaining-=1;
+      const n={...card, items:items.filter(x=>x.remaining>0)};
+      return {card:n, log:{type:'use', kind:'item', itemKind:it.kind, itemName:it.name, qty:1, balanceAfter:n.balance||0}};
+    });
+    const left=(next.items||[]).find(x=>x.key===it.key);
+    toast('Zrealizowano: '+it.name+' ✓ Zostało: '+(left?left.remaining:0));
+    renderCardSheet(next);
+  }catch(e){ console.error(e); toast(e.message||'Błąd zapisu'); }
+};
+
+// ─── DANE WŁAŚCICIELA / USUWANIE KARTY ───
+window.openEditCard = function(){
+  const c=curCard; if(!c) return;
+  openSheet(`
+    <div class="sheet-title">Dane karty <span class="mono">${esc(c.number)}</span></div>
+    <div class="f-group"><label class="f-label">Imię i nazwisko</label>
+      <input class="f-input" id="ec-name" type="text" autocapitalize="words" value="${esc(c.ownerName||'')}" oninput="this.value=capName(this.value)"></div>
+    <div class="f-group"><label class="f-label">Telefon</label>
+      <input class="f-input" id="ec-phone" type="tel" value="${esc(c.ownerPhone||'')}" onblur="this.value=formatPhone(this.value)"></div>
+    <div class="info">Utworzona: ${c.createdAt?fmtD(c.createdAt.slice(0,10)):'—'}${c.lastTopupAt?' · ostatnie doładowanie: '+fmtD(c.lastTopupAt.slice(0,10)):''}</div>
+    <button class="btn-primary btn-success" onclick="saveEditCard()">Zapisz</button>
+    <button class="btn-primary btn-ghost" onclick="renderCardSheet(curCard)">Anuluj</button>
+    <button class="btn-primary btn-danger" onclick="deleteCard()" style="margin-top:1.2rem"><i class="fa-solid fa-trash"></i> Usuń kartę</button>`);
+};
+window.saveEditCard = async function(){
+  const c=curCard; if(!c) return;
+  const ownerName=capName(val('ec-name').trim()), ownerPhone=formatPhone(val('ec-phone'));
+  try{
+    await updateDoc(doc(db,COL_CARDS,c.number),{ownerName,ownerPhone});
+    toast('Zapisano ✓');
+    renderCardSheet({...c,ownerName,ownerPhone});
+  }catch(e){ console.error(e); toast('Błąd zapisu — sprawdź połączenie'); }
+};
+window.deleteCard = async function(){
+  const c=curCard; if(!c) return;
+  if(!await customConfirm('Na pewno usunąć kartę '+c.number+' wraz z saldem ('+money(c.balance)+')? Tego nie można cofnąć.')) return;
+  try{
+    await deleteDoc(doc(db,COL_CARDS,c.number));
+    toast('Karta usunięta');
+    closeSheet();
+  }catch(e){ console.error(e); toast('Błąd usuwania — sprawdź połączenie'); }
+};
+
+// ─── HISTORIA KARTY ───
+function describeLog(l){
+  if(l.type==='topup'){
+    if(l.kind==='amount') return {t:'Doładowanie kwotą', v:'+'+money(l.amount), cls:'plus'};
+    return {t:(l.kind==='abon'?'Abonament: ':'Produkt: ')+l.qty+'× '+esc(l.itemName), v:l.amount?('wpłata '+money(l.amount)):'', cls:'plus'};
+  }
+  if(l.kind==='amount') return {t:'Płatność z salda', v:'−'+money(l.amount), cls:'minus'};
+  return {t:'Zrealizowano: '+esc(l.itemName), v:'−1 szt.', cls:'minus'};
+}
+function fmtTs(iso){ const d=new Date(iso); return isNaN(d)?'':d.toLocaleString('pl-PL',{day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+window.openHistory = async function(num){
+  openSheet(`<div class="sheet-title">Historia karty <span class="mono">${esc(num)}</span></div><div class="empty-msg">Ładowanie…</div>`);
+  try{
+    const snap = await getDocs(query(collection(db,COL_LOG), where('cardId','==',num)));
+    const list=[]; snap.forEach(d=>list.push(d.data()));
+    list.sort((a,b)=>String(b.at).localeCompare(String(a.at)));
+    const rows = list.map(l=>{ const d=describeLog(l); return `<div class="hist-row"><div>${d.t}<small>${fmtTs(l.at)}${l.by?' · '+esc(l.by):''}</small></div><div class="${d.cls}">${d.v}</div></div>`; }).join('');
+    openSheet(`<div class="sheet-title">Historia karty <span class="mono">${esc(num)}</span></div>
+      ${rows||'<div class="empty-msg">Brak operacji</div>'}
+      <button class="btn-primary btn-ghost" onclick="${curCard&&curCard.number===num?'renderCardSheet(curCard)':'closeSheet()'}" style="margin-top:1rem">← Wróć</button>`);
+  }catch(e){ console.error(e); toast('Błąd pobierania historii'); }
+};
+
+// ─── LISTA KART ───
+let listFilter='all';
+const FILTERS=[['all','Wszystkie'],['ok','Aktywne'],['soon','Wygasają ≤30 dni'],['expired','Wygasłe'],['empty','Puste']];
+window.setListFilter = f=>{ listFilter=f; renderList(); };
+function renderList(){
+  const all=Object.values(cards);
+  const match=(c,f)=>{
+    const k=cardStatus(c).key, e=isEmptyCard(c);
+    if(f==='all') return true;
+    if(f==='empty') return e;
+    if(f==='expired') return k==='expired';
+    if(f==='soon') return k==='soon'&&!e;
+    return k!=='expired'&&!e;
+  };
+  $('list-filters').innerHTML = FILTERS.map(([k,l])=>`<button class="chip${listFilter===k?' on':''}" onclick="setListFilter('${k}')">${l} (${all.filter(c=>match(c,k)).length})</button>`).join('');
+  const q=($('list-search').value||'').trim().toLowerCase();
+  const qd=q.replace(/\D/g,'');
+  let list=all.filter(c=>match(c,listFilter));
+  if(q) list=list.filter(c=>(c.ownerName||'').toLowerCase().includes(q)||(c.number||'').toLowerCase().includes(q)||(qd.length>=3&&phoneDigits(c.ownerPhone||'').includes(qd)));
+  list.sort((a,b)=>(a.expiresAt||'').localeCompare(b.expiresAt||'')||(a.ownerName||'').localeCompare(b.ownerName||'','pl'));
+  $('list-body').innerHTML = list.length ? list.map(c=>{
+    const st=cardStatus(c), e=isEmptyCard(c);
+    const its=activeItems(c).map(i=>i.remaining+'× '+esc(i.name)).join(', ');
+    const cls=e?'empty':st.key==='expired'?'expired':st.key==='soon'?'soon':'';
+    return `<div class="card-row ${cls}" onclick="openCardById('${esc(c.id)}')">
+      <div><div class="cr-name">${esc(c.ownerName||'Bez nazwy')}</div>
+      <div class="cr-sub"><span class="mono">${esc(c.number)}</span>${c.ownerPhone?' · '+esc(c.ownerPhone):''}${its?'<br>'+its:''}</div></div>
+      <div class="cr-side"><b>${money(c.balance)}</b><small>${esc(st.label)}</small></div></div>`;
+  }).join('') : '<div class="empty-msg">Brak kart w tym widoku</div>';
+}
+window.renderList = renderList;
+
+// ─── RAPORT ───
+window.loadReport = async function(){
+  const m=$('rep-month').value; if(!m) return;
+  const [y,mo]=m.split('-').map(Number);
+  const start=new Date(y,mo-1,1).toISOString(), end=new Date(y,mo,1).toISOString();
+  $('rep-body').innerHTML='<div class="empty-msg">Ładowanie…</div>';
+  try{
+    const snap=await getDocs(query(collection(db,COL_LOG), where('at','>=',start), where('at','<',end)));
+    const logs=[]; snap.forEach(d=>logs.push(d.data()));
+    const tops=logs.filter(l=>l.type==='topup'), uses=logs.filter(l=>l.type==='use');
+    const sumAmt=tops.filter(l=>l.kind==='amount').reduce((s,l)=>s+(l.amount||0),0);
+    const sumPkg=tops.filter(l=>l.kind!=='amount').reduce((s,l)=>s+(l.amount||0),0);
+    const usedAmt=uses.filter(l=>l.kind==='amount').reduce((s,l)=>s+(l.amount||0),0);
+    const sold={}, used={};
+    tops.filter(l=>l.kind!=='amount').forEach(l=>{ sold[l.itemName]=(sold[l.itemName]||0)+(l.qty||0); });
+    uses.filter(l=>l.kind==='item').forEach(l=>{ used[l.itemName]=(used[l.itemName]||0)+1; });
+    const line=(a,b)=>`<div class="rep-line"><span>${a}</span><b>${b}</b></div>`;
+    const soonList=Object.values(cards).filter(c=>cardStatus(c).key==='soon'&&!isEmptyCard(c)).sort((a,b)=>a.expiresAt.localeCompare(b.expiresAt));
+    $('rep-body').innerHTML=`
+      <div class="rep-box"><h3>Wpłaty w miesiącu</h3>
+        ${line('Razem wpłaty',money(sumAmt+sumPkg))}
+        ${line('Doładowania kwotą ('+tops.filter(l=>l.kind==='amount').length+')',money(sumAmt))}
+        ${line('Abonamenty i produkty ('+tops.filter(l=>l.kind!=='amount').length+')',money(sumPkg))}
+      </div>
+      <div class="rep-box"><h3>Wykorzystanie</h3>
+        ${line('Pobrano z salda',money(usedAmt))}
+        ${Object.keys(used).sort().map(n=>line('Zrealizowano: '+esc(n),used[n]+' szt.')).join('')||line('Zrealizowane pozycje','0')}
+      </div>
+      ${Object.keys(sold).length?`<div class="rep-box"><h3>Sprzedane pakiety (szt.)</h3>${Object.keys(sold).sort().map(n=>line(esc(n),sold[n])).join('')}</div>`:''}
+      <div class="rep-box"><h3>Wygasają w 30 dni (${soonList.length})</h3>
+        ${soonList.map(c=>`<div class="rep-line" style="cursor:pointer" onclick="openCardById('${esc(c.id)}')"><span>${esc(c.ownerName||c.number)}${c.ownerPhone?' · '+esc(c.ownerPhone):''}</span><b>${fmtD(c.expiresAt)}</b></div>`).join('')||'<div class="empty-msg" style="padding:.8rem">Brak</div>'}
+      </div>`;
+  }catch(e){ console.error(e); $('rep-body').innerHTML='<div class="empty-msg">Błąd pobierania raportu</div>'; }
+};
+
+// ─── LOGOWANIE (Firebase Authentication — e-mail i hasło) + PIN, tak jak w rez.html ───
+const PIN_USERS = {
+  '306756': 'Filemon',
+  '482913': 'Ola 🐒🌷❤️',
+};
+const loginScreen=$('login-screen');
+const pinLock=$('pin-lock');
+let unlocked=false;
+let pinBuf='', pinFails=0, pinBlockedUntil=0, pinBusy=false;
+const PIN_LEN=6;
+
+function updateUserBadge(){ $('user-badge').innerHTML = currentUserName ? '<i class="fa-solid fa-user"></i> '+esc(currentUserName) : ''; }
+function renderPin(errDots){
+  $('pin-title').textContent='Wpisz kod PIN';
+  document.querySelectorAll('#pin-dots .pin-dot').forEach((d,i)=>{ d.classList.toggle('filled',i<pinBuf.length&&!errDots); d.classList.toggle('error',!!errDots); });
+}
+function pinMsg(t){ $('pin-error').textContent=t||''; }
+function showPinScreen(){
+  pinBuf='';pinFails=0;pinBusy=false;
+  currentUserName=''; updateUserBadge(); pinMsg(''); renderPin();
+  pinLock.style.display='flex';
+}
+function pinUnlock(name){
+  unlocked=true; pinBuf=''; currentUserName=name; updateUserBadge();
+  pinLock.style.display='none';
+  startApp(); focusScan();
+}
+function pinFlashError(msg){
+  pinMsg(msg); renderPin(true);
+  setTimeout(()=>{ pinBuf=''; renderPin(); pinBusy=false; },600);
+}
+function pinComplete(){
+  pinBusy=true;
+  const name=PIN_USERS[pinBuf];
+  if(name){ pinUnlock(name); return; }
+  pinFails++;
+  if(pinFails>=5){ pinFails=0; pinBlockedUntil=Date.now()+30000; pinFlashError('Zbyt wiele prób. Odczekaj 30 s.'); }
+  else pinFlashError('Nieprawidłowy PIN');
+}
+window.pinPress=function(d){
+  if(pinBusy)return;
+  if(Date.now()<pinBlockedUntil){ pinMsg('Zbyt wiele prób. Odczekaj '+Math.ceil((pinBlockedUntil-Date.now())/1000)+' s.'); return; }
+  if(pinBuf.length>=PIN_LEN)return;
+  pinMsg(''); pinBuf+=d; renderPin();
+  if(pinBuf.length===PIN_LEN)setTimeout(pinComplete,120);
+};
+window.pinDel=function(){ if(pinBusy)return; pinBuf=pinBuf.slice(0,-1); renderPin(); };
+document.addEventListener('keydown',e=>{
+  if(pinLock.style.display!=='flex')return;
+  if(/^[0-9]$/.test(e.key)){ pinPress(e.key); e.preventDefault(); }
+  else if(e.key==='Backspace'){ pinDel(); e.preventDefault(); }
+});
+window.pinForgot=async function(){
+  if(!await customConfirm('Wylogować konto? Trzeba będzie zalogować się e-mailem i hasłem.'))return;
+  try{await signOut(auth);}catch(e){}
+  location.reload();
+};
+window.filemonLock=function(){
+  if(!auth.currentUser)return;
+  unlocked=false;
+  $('ov').classList.remove('show');
+  showPinScreen();
+};
+onAuthStateChanged(auth,user=>{
+  $('login-loading').style.display='none';
+  if(user){
+    loginScreen.style.display='none';
+    if(!unlocked)showPinScreen();
+  } else {
+    if(appStarted){location.reload();return;}
+    currentUserName=''; unlocked=false;
+    pinLock.style.display='none';
+    loginScreen.style.display='flex';
+    $('login-form').style.display='flex';
+  }
+});
+window.doLogin=async function(){
+  const email=$('login-email').value.trim(), pass=$('login-pass').value;
+  const err=$('login-error'), btn=$('login-btn');
+  err.textContent='';
+  if(!email||!pass){ err.textContent='Podaj e-mail i hasło.'; return; }
+  btn.disabled=true; btn.textContent='Logowanie...';
+  try{
+    await signInWithEmailAndPassword(auth,email,pass);
+    $('login-pass').value='';
+  }catch(e){
+    const c=e&&e.code||'';
+    err.textContent = c==='auth/too-many-requests' ? 'Zbyt wiele prób. Odczekaj kilka minut i spróbuj ponownie.'
+      : c==='auth/network-request-failed' ? 'Brak połączenia z internetem.'
+      : c==='auth/invalid-email' ? 'Niepoprawny adres e-mail.'
+      : 'Nieprawidłowy e-mail lub hasło.';
+  }
+  btn.disabled=false; btn.textContent='Zaloguj';
+};
+
+// wysokość nagłówka → pozycja przyklejonych zakładek
+function syncHeaderHeight(){ const h=document.querySelector('header'); if(h)document.documentElement.style.setProperty('--hdr-h',h.offsetHeight+'px'); }
+syncHeaderHeight();
+window.addEventListener('load',syncHeaderHeight);
+window.addEventListener('resize',syncHeaderHeight);
+
+// funkcje używane w atrybutach onclick/oninput w HTML
+window.capName=capName; window.formatPhone=formatPhone;
+</script>
+
+<!-- EKRAN LOGOWANIA (Firebase Authentication) -->
+<div class="pin-screen" id="login-screen">
+  <div id="login-loading" style="color:#fff;font-weight:700;opacity:.8">Ładowanie...</div>
+  <form id="login-form" onsubmit="event.preventDefault();doLogin();" style="display:none;flex-direction:column;gap:.8rem;width:min(320px,86vw)">
+    <div style="color:#fff;font-size:1.3rem;font-weight:800;text-align:center">Filemon karty podarunkowe</div>
+    <input type="email" id="login-email" placeholder="E-mail" autocomplete="username" inputmode="email" style="padding:.85rem 1rem;border-radius:12px;border:none;font-size:1rem;font-family:inherit">
+    <input type="password" id="login-pass" placeholder="Hasło" autocomplete="current-password" style="padding:.85rem 1rem;border-radius:12px;border:none;font-size:1rem;font-family:inherit">
+    <div id="login-error" style="color:#ffb4b4;font-size:.85rem;min-height:1.1rem;text-align:center;font-weight:600"></div>
+    <button type="submit" id="login-btn" style="padding:.9rem;border-radius:12px;border:none;background:#1DB96A;color:#fff;font-size:1rem;font-weight:800;cursor:pointer;font-family:inherit">Zaloguj</button>
+  </form>
+</div>
+
+<!-- EKRAN KODU PIN -->
+<div class="pin-screen" id="pin-lock" style="display:none">
+  <div class="pin-title" id="pin-title">Wpisz kod PIN</div>
+  <div class="pin-sub" id="pin-sub"></div>
+  <div class="pin-dots" id="pin-dots"><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
+  <div class="pin-error" id="pin-error"></div>
+  <div class="pin-pad">
+    <button class="pin-btn" onclick="pinPress('1')">1</button>
+    <button class="pin-btn" onclick="pinPress('2')">2</button>
+    <button class="pin-btn" onclick="pinPress('3')">3</button>
+    <button class="pin-btn" onclick="pinPress('4')">4</button>
+    <button class="pin-btn" onclick="pinPress('5')">5</button>
+    <button class="pin-btn" onclick="pinPress('6')">6</button>
+    <button class="pin-btn" onclick="pinPress('7')">7</button>
+    <button class="pin-btn" onclick="pinPress('8')">8</button>
+    <button class="pin-btn" onclick="pinPress('9')">9</button>
+    <button class="pin-btn empty"></button>
+    <button class="pin-btn" onclick="pinPress('0')">0</button>
+    <button class="pin-btn del" onclick="pinDel()">⌫</button>
+  </div>
+  <button class="pin-link" onclick="pinForgot()">Wyloguj konto (zmień e-mail)</button>
+</div>
+</body>
+</html>
